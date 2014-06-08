@@ -6,6 +6,8 @@
 #include "ofxLearn.h"
 #include "ofxUI.h"
 #include "ofxOsc.h"
+#include "ofxStk.h"
+
 
 class ofApp : public ofBaseApp{
     

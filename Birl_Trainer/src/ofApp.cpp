@@ -56,7 +56,7 @@ void ofApp::trainFromFile(string path){
             mlp.addTrainingInstance(instance, label);
         }
     }
-    mlp.trainRegressor();
+    mlp.trainRegression();
     recording = false;
     testing = true;
 }
@@ -141,7 +141,7 @@ void ofApp::keyPressed(int key){
         testing = !testing;
         if (testing) {
             recording = false;
-            mlp.trainRegressor();
+            mlp.trainRegression();
         }
     }
 }
@@ -154,7 +154,7 @@ void ofApp::guiEvent(ofxUIEventArgs &e) {
     else if (e.getName() == "test") {
         if (testing) {
             recording = false;
-            mlp.trainRegressor();
+            mlp.trainRegression();
         }
     }
 }
