@@ -16,6 +16,16 @@ void ofApp::setup(){
 
     
     guiData = new ofxUISuperCanvas("Birl Data");
+    guiData->addSlider("1", 0.0, 1.0, &keys[0], 40, 150);
+	guiData->setWidgetPosition(OFX_UI_WIDGET_POSITION_RIGHT);
+    for (int i=1; i<9; i++) {
+        guiData->addSlider(ofToString(i+1), 0.0, 1.0, &keys[i], 40, 150);
+    }
+    guiData->addSlider("label", 0, 1, &label, 40, 150);
+	guiData->setWidgetPosition(OFX_UI_WIDGET_POSITION_DOWN);
+    guiData->addSpacer();
+
+    /*
     guiData->addSpacer();
     ofxUICircleSlider *s1 = guiData->addCircleSlider("1", 0, 100, 50, 50);
     guiData->setWidgetPosition(OFX_UI_WIDGET_POSITION_RIGHT);
@@ -24,19 +34,8 @@ void ofApp::setup(){
     ofxUICircleSlider *s4 = guiData->addCircleSlider("4", 0, 100, 50, 50);
     ofxUICircleSlider *s5 = guiData->addCircleSlider("5", 0, 100, 50, 50);
     ofxUICircleSlider *s6 = guiData->addCircleSlider("6", 0, 100, 50, 50);
-    
-
     guiData->autoSizeToFitWidgets();
-    
-//    guiData->addRotarySlider("R2SLIDER", 0, 100, 50);
-    //    guiData->addSlider("1", 0.0, 1.0, &keys[0], 40, 150);
-//	guiData->setWidgetPosition(OFX_UI_WIDGET_POSITION_RIGHT);
-//    for (int i=1; i<9; i++) {
-//        guiData->addSlider(ofToString(i+1), 0.0, 1.0, &keys[i], 40, 150);
-//    }
-//    guiData->addSlider("label", 0, 1, &label, 40, 150);
-//	guiData->setWidgetPosition(OFX_UI_WIDGET_POSITION_DOWN);
-//    guiData->addSpacer();
+     */
     
     // options
     guiOptions = new ofxUISuperCanvas("Options");
