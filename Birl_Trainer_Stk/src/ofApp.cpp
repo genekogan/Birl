@@ -10,12 +10,9 @@ void ofApp::setup(){
     }
     
     // birl data
-//    guiData = new ofxUISuperCanvas("Birl data");
-//    guiData->setWidth(500);
-//    guiData->addSpacer();
-
-    
-    guiData = new ofxUISuperCanvas("Birl Data");
+    guiData = new ofxUISuperCanvas("Birl data");
+    guiData->setWidth(500);
+    guiData->addSpacer();
     guiData->addSlider("1", 0.0, 1.0, &keys[0], 40, 150);
 	guiData->setWidgetPosition(OFX_UI_WIDGET_POSITION_RIGHT);
     for (int i=1; i<9; i++) {
