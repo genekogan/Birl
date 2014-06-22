@@ -1,0 +1,17 @@
+<Preset>
+	<Metadata>
+		<Name>some Other example</Name>
+	</Metadata>
+	<Parameters>
+		<Parameter>
+			<Name>this</Name>
+		    <MinValue>50</MinValue>
+		    <MaxValue>127.0</MaxValue>
+		</Parameter>
+		<Parameter>
+			<Name>that</Name>
+		    <MinValue>10</MinValue>
+		    <MaxValue>20</MaxValue>
+		</Parameter>
+	</Parameters>
+</Preset>
