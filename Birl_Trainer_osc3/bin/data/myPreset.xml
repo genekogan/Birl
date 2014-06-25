@@ -1,0 +1,17 @@
+<Preset>
+	<Metadata>
+		<Name>myPreset</Name>
+	</Metadata>
+	<Parameters>
+		<Parameter>
+			<Name>freq</Name>
+			<MinValue>5</MinValue>
+			<MaxValue>10</MaxValue>
+		</Parameter>
+		<Parameter>
+			<Name>this</Name>
+			<MinValue>1</MinValue>
+			<MaxValue>3</MaxValue>
+		</Parameter>
+	</Parameters>
+</Preset>

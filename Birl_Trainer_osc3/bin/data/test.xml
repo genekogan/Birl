@@ -1,0 +1,27 @@
+<Preset>
+	<Metadata>
+		<Name>test</Name>
+	</Metadata>
+	<Parameters>
+		<Parameter>
+			<Name>freq</Name>
+			<MinValue>10</MinValue>
+			<MaxValue>100</MaxValue>
+		</Parameter>
+		<Parameter>
+			<Name>base</Name>
+			<MinValue>5</MinValue>
+			<MaxValue>8</MaxValue>
+		</Parameter>
+		<Parameter>
+			<Name>last</Name>
+			<MinValue>5</MinValue>
+			<MaxValue>6</MaxValue>
+		</Parameter>
+		<Parameter>
+			<Name/>
+			<MinValue>0</MinValue>
+			<MaxValue>1</MaxValue>
+		</Parameter>
+	</Parameters>
+</Preset>
