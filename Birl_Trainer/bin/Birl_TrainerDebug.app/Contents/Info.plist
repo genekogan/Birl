@@ -9,7 +9,7 @@
 	<key>CFBundleExecutable</key>
 	<string>Birl_TrainerDebug</string>
 	<key>CFBundleIconFile</key>
-	<string>icon-debug.icns</string>
+	<string>birlicon4</string>
 	<key>CFBundleIdentifier</key>
 	<string>cc.openFrameworks.ofapp</string>
 	<key>CFBundleInfoDictionaryVersion</key>

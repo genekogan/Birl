@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "E4B69B5A0A3A1756003C02F2"
-               BuildableName = "Birl_Trainer.app"
-               BlueprintName = "Birl_Trainer"
-               ReferencedContainer = "container:Birl_Trainer.xcodeproj">
+               BuildableName = "Birl_Trainer_Osc.app"
+               BlueprintName = "Birl_Trainer_Osc"
+               ReferencedContainer = "container:Birl_Trainer_Osc.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,7 +33,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "E4B69B5A0A3A1756003C02F2"
-            BuildableName = "Birl_Trainer.app"
+            BuildableName = "Birl_Trainer_Osc3.app"
             BlueprintName = "Birl_Trainer"
             ReferencedContainer = "container:Birl_Trainer.xcodeproj">
          </BuildableReference>
@@ -52,7 +52,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "E4B69B5A0A3A1756003C02F2"
-            BuildableName = "Birl_Trainer.app"
+            BuildableName = "Birl_Trainer_Osc3.app"
             BlueprintName = "Birl_Trainer"
             ReferencedContainer = "container:Birl_Trainer.xcodeproj">
          </BuildableReference>
@@ -70,9 +70,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "E4B69B5A0A3A1756003C02F2"
-            BuildableName = "Birl_Trainer.app"
-            BlueprintName = "Birl_Trainer"
-            ReferencedContainer = "container:Birl_Trainer.xcodeproj">
+            BuildableName = "Birl_Trainer_Osc.app"
+            BlueprintName = "Birl_Trainer_Osc"
+            ReferencedContainer = "container:Birl_Trainer_Osc.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

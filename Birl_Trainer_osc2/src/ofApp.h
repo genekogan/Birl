@@ -1,44 +1,25 @@
 #pragma once
 
+#define BIRL_PORT 1234
+#define SYNTH_HOST "localhost"
+#define SYNTH_PORT 5678
+
 
 #include "ofMain.h"
-#include "ofxUI.h"
-#include "Constants.h"
-#include "OutputParameter.h"
 #include "Birl.h"
-#include "Presets.h"
-
+#include "SynthParameter.h"
+#include "SynthManager.h"
 
 class ofApp : public ofBaseApp
 {
 public:
     void setup();
     void update();
-    void setTrainState(TrainState trainState);
     void draw();    
     void keyPressed(int key);
     
 protected:
-    void checkIfDeleteParameters();
-    void guiSelectEvent(ofxUIEventArgs &e);
-    void guiMonitorEvent(ofxUIEventArgs &e);
-    void guiRecordEvent(ofxUIEventArgs &e);
-    void guiPlayEvent(ofxUIEventArgs &e);
-    
-    ofxUISuperCanvas *guiSelect, *guiMonitor, *guiRecord, *guiPlay;
-    TrainState trainState;
-    
-    string trainingMessage;
-    int numCollectedCurrent=0, numCollectedTotal=0;
-    
-    vector<OutputParameter *> outputParameters;
-    
+    SynthManager synthManager;
     Birl birl;
-    
-    bool recording, predicting, countingDown;
-    float timerLast, timer;
-    float countdown = 2;
-    float duration = 3;
-    
-    ofTrueTypeFont geneva;
+    bool recording;    
 };

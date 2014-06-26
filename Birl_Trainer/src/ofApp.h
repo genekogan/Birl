@@ -1,39 +1,48 @@
 #pragma once
 
-#define PORT 1234
 
 #include "ofMain.h"
-#include "ofxLearn.h"
 #include "ofxUI.h"
-#include "ofxOsc.h"
-#include "ofxStk.h"
+#include "Constants.h"
+#include "OutputParameter.h"
+#include "Birl.h"
+#include "PresetManager.h"
 
 
-class ofApp : public ofBaseApp{
-    
+class ofApp : public ofBaseApp
+{
 public:
     void setup();
-    void trainFromFile(string path);
     void update();
+    void setMode(Mode mode);
     void draw();
-    
     void keyPressed(int key);
-    void keyReleased(int key);
-    void mouseMoved(int x, int y );
-    void mouseDragged(int x, int y, int button);
-    void mousePressed(int x, int y, int button);
-    void mouseReleased(int x, int y, int button);
-    void windowResized(int w, int h);
-    void dragEvent(ofDragInfo dragInfo);
-    void gotMessage(ofMessage msg);
-	void guiEvent(ofxUIEventArgs &e);
     
-private:
-    ofxUISuperCanvas *guiData, *guiOptions;
-    ofxLearn mlp;
-    ofxOscReceiver osc;
-    vector<float> keys;
-    float label;
-    bool recording;
-    bool testing;
+protected:
+    void checkIfDeleteParameters();
+    void guiMainEvent(ofxUIEventArgs &e);
+    void guiSelectEvent(ofxUIEventArgs &e);
+    void guiMonitorEvent(ofxUIEventArgs &e);
+    void guiRecordEvent(ofxUIEventArgs &e);
+    void guiPlayEvent(ofxUIEventArgs &e);
+    
+    void toggleRecording(bool toRecord);
+    void trainClassifiers(TrainMode trainMode);
+    
+    ofxUISuperCanvas *guiMain, *guiSelect, *guiMonitor, *guiRecord, *guiPlay;
+    Mode mode;
+    
+    string trainingMessage;
+    int numCollectedCurrent=0, numCollectedTotal=0;
+    
+    Birl birl;
+    PresetManager presetManager;
+    vector<OutputParameter *> outputParameters;
+    
+    bool recording, predicting, countingDown;
+    float timerLast, timer;
+    float countdown = 2;
+    float duration = 3;
+    
+    ofTrueTypeFont geneva;
 };

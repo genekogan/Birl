@@ -1,0 +1,22 @@
+<Preset>
+	<Metadata>
+		<Name>new preset</Name>
+	</Metadata>
+	<Parameters>
+		<Parameter>
+			<Name>freq</Name>
+			<MinValue>40</MinValue>
+			<MaxValue>1000</MaxValue>
+		</Parameter>
+		<Parameter>
+			<Name>amp</Name>
+			<MinValue>0</MinValue>
+			<MaxValue>1</MaxValue>
+		</Parameter>
+		<Parameter>
+			<Name>timbre1</Name>
+			<MinValue>0</MinValue>
+			<MaxValue>1</MaxValue>
+		</Parameter>
+	</Parameters>
+</Preset>
