@@ -36,7 +36,7 @@ void ofApp::setup(){
     guiSelect->addButton("add new", false)->setLabelPosition(OFX_UI_WIDGET_POSITION_DOWN);
     guiSelect->setWidgetPosition(OFX_UI_WIDGET_POSITION_RIGHT);
     guiSelect->addButton("next", false)->setLabelPosition(OFX_UI_WIDGET_POSITION_DOWN);
-    
+
     guiMonitor = new ofxUISuperCanvas("Monitor");
     guiMonitor->setWidgetFontSize(OFX_UI_FONT_MEDIUM);
     guiMonitor->setWidgetSpacing(14);
@@ -46,10 +46,10 @@ void ofApp::setup(){
     guiMonitor->setHeight(GUI_TRAIN_H-8);
     guiMonitor->addToggle("send osc", &sendingOsc)->setLabelPosition(OFX_UI_WIDGET_POSITION_DOWN);
     guiMonitor->setWidgetPosition(OFX_UI_WIDGET_POSITION_RIGHT);
-    guiMonitor->addButton("train fast", false)->setLabelPosition(OFX_UI_WIDGET_POSITION_DOWN);;
-    guiMonitor->addButton("train accurate", false)->setLabelPosition(OFX_UI_WIDGET_POSITION_DOWN);;
+    guiMonitor->addButton("train fast", false)->setLabelPosition(OFX_UI_WIDGET_POSITION_DOWN);
+    guiMonitor->addButton("train accurate", false)->setLabelPosition(OFX_UI_WIDGET_POSITION_DOWN);
     guiMonitor->addButton("back", false)->setLabelPosition(OFX_UI_WIDGET_POSITION_DOWN);
-    
+
     guiRecord = new ofxUISuperCanvas("Record");
     guiRecord->setWidgetFontSize(OFX_UI_FONT_MEDIUM);
     guiRecord->setWidgetSpacing(11);
@@ -78,14 +78,18 @@ void ofApp::setup(){
     guiPlay->addButton("save", false)->setLabelPosition(OFX_UI_WIDGET_POSITION_DOWN);
     guiPlay->addButton("back", false)->setLabelPosition(OFX_UI_WIDGET_POSITION_DOWN);
     
+    // add event listeners
     ofAddListener(guiMain->newGUIEvent, this, &ofApp::guiMainEvent);
     ofAddListener(guiSelect->newGUIEvent, this, &ofApp::guiSelectEvent);
     ofAddListener(guiMonitor->newGUIEvent, this, &ofApp::guiMonitorEvent);
     ofAddListener(guiRecord->newGUIEvent, this, &ofApp::guiRecordEvent);
     ofAddListener(guiPlay->newGUIEvent, this, &ofApp::guiPlayEvent);
-    
+
     // set initial mode
     setMode(TRAINING_SELECT_OUTPUTS);
+    
+    // create classifier thread
+    classifierThread = new ClassifierThread(&outputParameters);
 }
 
 //-------
@@ -115,7 +119,7 @@ void ofApp::toggleRecording(bool toRecord) {
 }
 
 //-------
-void ofApp::trainClassifiers(TrainMode trainMode) {
+bool ofApp::trainClassifiers(TrainMode trainMode) {
     int numOutputParametersWithNoExamples = 0;
     for (int i=0; i<outputParameters.size(); i++) {
         if (outputParameters[i]->getNumExamples() == 0) {
@@ -124,26 +128,26 @@ void ofApp::trainClassifiers(TrainMode trainMode) {
     }
     if (numOutputParametersWithNoExamples == outputParameters.size()) {
         ofSystemAlertDialog("None of your output parameters have any examples! Can't train!");
-        return;
+        return false;
     }
     else if (numOutputParametersWithNoExamples > 0) {
         string action = ofSystemTextBoxDialog("Caution: At least one of your output parameters has no examples to train on. It will be skipped in training (you can train it later). Type OK to proceed with training.");
-        cout << action << "action"<<endl;
         if (action != "OK") {
-            return;
+            return false;
         }
     }
     else {
         ofSystemAlertDialog("About to train classifiers. This may take a few minutes. Try going outside.");
     }
-    bool toTrain[outputParameters.size()];
+    vector<bool> toTrain;
+    toTrain.resize(outputParameters.size());
     for (int i=0; i<outputParameters.size(); i++) {
         if (outputParameters[i]->getNumExamples() == 0) {
             toTrain[i] = false;
         }
         else {
             if (outputParameters[i]->isTrained()) {
-                string action = ofSystemTextBoxDialog("Warning: the output parameter \""+outputParameters[i]->getName()+" already has an existing classifier. Type OK to overwrite it, or otherwise skip it and keep the existing one.");
+                string action = ofSystemTextBoxDialog("Warning: the output parameter \""+outputParameters[i]->getName()+"\" already has an existing classifier. Type OK to overwrite it, or otherwise skip it and keep the existing one.");
                 if (action == "OK") {
                     toTrain[i] = true;
                 }
@@ -156,18 +160,19 @@ void ofApp::trainClassifiers(TrainMode trainMode) {
             }
         }
     }
+    
+    // start classifier thread
+    classifierThread->start(toTrain, trainMode);
     for (int i=0; i<outputParameters.size(); i++) {
-        if (toTrain[i]) {
-            outputParameters[i]->trainClassifier(trainMode);
-        }
+        outputParameters[i]->setIsTraining(false);
     }
-    cout << "finished training"<< endl;
+    setMode(TRAINING_TRAIN);
+    return true;
 }
 
 //-------
 void ofApp::guiMainEvent(ofxUIEventArgs &e) {
     if (e.getName() == "Perform") {
-        cout << " set gui perform" << endl;
         setMode(PERFORMANCE);
     }
     else if (e.getName() == "Train") {
@@ -205,20 +210,17 @@ void ofApp::guiMonitorEvent(ofxUIEventArgs &e) {
     }
     else if (e.getName() == "train fast") {
         if (((ofxUIButton *) e.widget)->getValue()==1) return;
-        cout << "1"<<endl;
-        trainClassifiers(FAST);
-        cout << "2"<<endl;
-        setMode(TRAINING_PLAY);
-        cout << "3"<<endl;
-
+        bool trained = trainClassifiers(FAST);
+//        if (trained) {
+//            setMode(TRAINING_PLAY);
+//        }
     }
     else if (e.getName() == "train accurate") {
         if (((ofxUIButton *) e.widget)->getValue()==1) return;
-        cout << "1"<<endl;
-        trainClassifiers(ACCURATE);
-        cout << "2"<<endl;
-        setMode(TRAINING_PLAY);
-        cout << "3"<<endl;
+        bool trained = trainClassifiers(ACCURATE);
+//        if (trained) {
+//            setMode(TRAINING_PLAY);
+//        }
     }
 }
 
@@ -256,21 +258,23 @@ void ofApp::update(){
     birl.update();
     
     switch (mode) {
-            // PERFORMANCE MODE
+        // PERFORMANCE MODE
         case PERFORMANCE:
-            cout << " is predicting " << presetManager.isPredicting() << endl;
             if (presetManager.isPredicting()) {
                 predictOutputParameters();
             }
+            if (presetManager.isSendingOsc()) {
+                sendOutputParametersOsc();
+            }
             break;
             
-            // MODE OUTPUT SELECTION
+        // MODE OUTPUT SELECTION
         case TRAINING_SELECT_OUTPUTS:
             // nothing to update
             break;
             
             
-            // MODE RECORDING EXAMPLES
+        // MODE RECORDING EXAMPLES
         case TRAINING_RECORD:
             if (countingDown) {
                 timer = countdown - (ofGetElapsedTimef() - timerLast);
@@ -331,23 +335,33 @@ void ofApp::update(){
                     ((ofxUIToggle *) guiRecord->getWidget("record"))->setValue(false);
                 }
             }
+            if (sendingOsc) {
+                sendOutputParametersOsc();
+            }
+            break;
+        
+        // MODE IN MIDDLE OF TRAINING
+        case TRAINING_TRAIN:
+            if (classifierThread->getIsTraining()) {
+                // still training
+            } else {
+                setMode(TRAINING_PLAY);
+            }
             break;
             
-            // MODE PLAYING BACK TRAINED CLASSIFIER
+        // MODE PLAYING BACK TRAINED CLASSIFIER
         case TRAINING_PLAY:
             if (predicting) {
                 predictOutputParameters();
+            }
+            if (sendingOsc) {
+                sendOutputParametersOsc();
             }
             break;
             
         default:
             break;
-    }
-    
-    // finally, send parameters out via OSC if requested
-    if (sendingOsc) {
-        sendOutputParametersOsc();
-    }
+    }    
 }
 
 //-------
@@ -359,6 +373,12 @@ void ofApp::predictOutputParameters() {
     
     // classify example
     for (int i=0; i<outputParameters.size(); i++) {
+        
+        // if output has no existing classifier, skip prediction
+        if (!outputParameters[i]->isTrained()) {
+            continue;
+        }
+        
         vector<double> example;
         
         // if true, we are only allowing continuous keys to be used
@@ -416,8 +436,8 @@ void ofApp::setMode(Mode mode){
             guiRecord->setVisible(false);
             guiPlay->setVisible(false);
             presetManager.setVisible(true);
-            recording = false;
-            predicting = false;
+            presetManager.setSendingOsc(true);
+            presetManager.setPredicting(true);
             break;
             
         case TRAINING_SELECT_OUTPUTS:
@@ -432,6 +452,14 @@ void ofApp::setMode(Mode mode){
             guiSelect->setVisible(false);
             guiMonitor->setVisible(true);
             guiRecord->setVisible(true);
+            guiPlay->setVisible(false);
+            presetManager.setVisible(false);
+            break;
+            
+        case TRAINING_TRAIN:
+            guiSelect->setVisible(false);
+            guiMonitor->setVisible(false);
+            guiRecord->setVisible(false);
             guiPlay->setVisible(false);
             presetManager.setVisible(false);
             break;
@@ -452,6 +480,8 @@ void ofApp::setMode(Mode mode){
 
 //-------
 void ofApp::draw(){
+    ofBackground(100);
+    
     // draw birl
     birl.draw(BIRL_DRAW_X, BIRL_DRAW_Y, BIRL_DRAW_W, BIRL_DRAW_H);
     
@@ -475,6 +505,15 @@ void ofApp::draw(){
             }
             ofDrawBitmapString(trainingMessage, 10, GUI_TRAIN_H-18);
             break;
+        
+        case TRAINING_TRAIN:
+            if (ofGetFrameNum() % 4 == 0) {
+                trainingBgColor = ofColor(ofRandom(255), ofRandom(255), ofRandom(255));
+            }
+            ofBackground(trainingBgColor);
+            ofSetColor(255);
+            geneva.drawString(classifierThread->getProgressString(), 50, 120);
+            break;
             
         case TRAINING_PLAY:
             break;
@@ -490,6 +529,21 @@ void ofApp::keyPressed(int key){
     if (key==' ') {
         ((ofxUIToggle *) guiRecord->getWidget("record"))->toggleValue();
         toggleRecording( ((ofxUIToggle *) guiRecord->getWidget("record"))->getValue() );
+    }
+    
+    // setting theme
+    else if (key=='t') {
+        idxStyle = (idxStyle+1) % 45;
+        guiMain->setTheme(idxStyle);
+        guiSelect->setTheme(idxStyle);
+        guiMonitor->setTheme(idxStyle);
+        guiRecord->setTheme(idxStyle);
+        guiPlay->setTheme(idxStyle);
+        for (int i=0; i<outputParameters.size(); i++) {
+            outputParameters[i]->setTheme(idxStyle);
+        }
+        presetManager.setTheme(idxStyle);
+        cout << "Theme set to " << idxStyle << endl;
     }
 }
 

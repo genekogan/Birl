@@ -36,6 +36,7 @@ public:
     bool setInputKeysDiscrete(bool b) { inputKeysDiscrete = b; }
     bool setInputPressure(bool b)     { inputPressure = b; }
     bool setInputEmbouchure(bool b)   { inputEmbouchure = b; }
+    void setIsTraining(bool training);
     
     void setMode(Mode mode);
     
@@ -47,6 +48,10 @@ public:
     void loadClassifier(string path);
     
     void sendOsc(ofxOscSender &osc);
+    
+    
+    void setTheme(int idxStyle);
+    
     
 protected:
     void guiEvent(ofxUIEventArgs &e);

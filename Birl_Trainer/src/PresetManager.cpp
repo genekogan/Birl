@@ -1,5 +1,13 @@
 #include "PresetManager.h"
 
+
+
+//-------
+void PresetManager::setTheme(int idxStyle) {
+    gui->setTheme(idxStyle);
+    guiPresets->setTheme(idxStyle);
+}
+
 //-------
 void PresetManager::setup(vector<OutputParameter *> *outputParameters) {
     this->outputParameters = outputParameters;
@@ -22,7 +30,6 @@ void PresetManager::setup(vector<OutputParameter *> *outputParameters) {
 	dir.listDir();
     vector<string> presetList;
 	for(int i = 0; i < dir.size(); i++) {
-        cout << "preset " << dir.getName(i) << endl;
 		presetList.push_back(dir.getName(i));
 	}
     
@@ -51,6 +58,16 @@ void PresetManager::guiPerformEvent(ofxUIEventArgs &e) {
 }
 
 //-------
+void PresetManager::setPredicting(bool predicting) {
+    this->predicting = predicting;
+}
+
+//-------
+void PresetManager::setSendingOsc(bool sendingOsc) {
+    this->sendingOsc = sendingOsc;
+}
+
+//-------
 void PresetManager::guiPresetEvent(ofxUIEventArgs &e) {
     cout << e.getName() << endl;
     cout << e.getParent()->getName()  << endl;
@@ -64,7 +81,7 @@ void PresetManager::guiPresetEvent(ofxUIEventArgs &e) {
 }
 
 //-------
-void PresetManager::loadPreset(string path) { //, vector<OutputParameter *> *outputParameters) {
+void PresetManager::loadPreset(string path) {
     ofXml xml;
     
     for (int i=0; i<outputParameters->size(); i++) {

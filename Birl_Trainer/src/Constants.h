@@ -9,7 +9,7 @@
 
 //------- BIRL INPUT CONSTANTS
 
-#define USE_FAKE_DATA false
+#define USE_FAKE_DATA true
 
 #define KEYS_NUMBER 9
 #define KEYS_MAX 1000
@@ -56,9 +56,19 @@
 
 //------- COLOR CONSTANTS
 
+// these are not being used for anything at the moment
+#define COLOR_BACKGROUND            0, 255, 0, 150
+#define COLOR_OUTLINE               255, 0, 255, 255
+#define COLOR_OUTLINE_HIGHLIGHT     0, 255, 255, 255
+#define COLOR_FILL                  255, 0, 0, 255
+#define COLOR_FILL_HIGHLIGHT        100, 100, 210, 255
+#define COLOR_PADDED                0, 255, 0, 255
+#define COLOR_PADDED_OUTLINE        0, 255, 255, 255
+
 
 enum Mode {
     PERFORMANCE,
     TRAINING_SELECT_OUTPUTS,
     TRAINING_RECORD,
+    TRAINING_TRAIN,
     TRAINING_PLAY };

@@ -1,6 +1,12 @@
 #include "OutputParameter.h"
 
 //-------
+void OutputParameter::setTheme(int idxStyle) {
+    guiTrain1->setTheme(idxStyle);
+    guiTrain2->setTheme(idxStyle);
+}
+
+//-------
 OutputParameter::OutputParameter(int idx, string name, float minValue, float maxValue){
     this->idx = idx;
     this->name = name;
@@ -13,9 +19,9 @@ OutputParameter::OutputParameter(int idx, string name, float minValue, float max
     guiTrain1 = new ofxUISuperCanvas("Parameter");
     guiTrain1->setWidth(0.49*GUI_TRAIN_W);
     guiTrain1->setHeight(PARAMETER_SELECT_H-15);
-    guiTrain1->setColorOutline(ofColor(0,220,50));
     guiTrain1->setColorOutlineHighlight(ofColor(255, 0, 0));
-    guiTrain1->setDrawOutline(true);
+    guiTrain1->setColorOutline(ofColor(0,220,50));
+    guiTrain1->setDrawOutline(false);
     
     guiTrain1->setWidgetPosition(OFX_UI_WIDGET_POSITION_RIGHT);
     guiTrain1->addButton("delete", false);
@@ -49,9 +55,9 @@ OutputParameter::OutputParameter(int idx, string name, float minValue, float max
     
     
     guiTrain2 = new ofxUISuperCanvas(name);
-    guiTrain2->setColorOutline(ofColor(0,220,50));
     guiTrain2->setColorOutlineHighlight(ofColor(255, 0, 0));
-    guiTrain2->setDrawOutline(true);
+    guiTrain2->setColorOutline(ofColor(0,220,50));
+    guiTrain2->setDrawOutline(false);
     guiTrain2->setWidth(0.48*GUI_TRAIN_W);
     guiTrain2->setHeight(PARAMETER_VIEW_H-20);
     
@@ -80,11 +86,11 @@ OutputParameter::OutputParameter(int idx, string name, float minValue, float max
 void OutputParameter::reindex(int idx) {
     this->idx = idx;
     guiTrain1->setPosition(
-                           GUI_PARAMETERS_X + (idx<4 ? 4 : 4+0.5*GUI_PARAMETERS_W),
-                           GUI_PARAMETERS_Y + 8 + PARAMETER_SELECT_H * (idx%4) );
+       GUI_PARAMETERS_X + (idx<4 ? 4 : 4+0.5*GUI_PARAMETERS_W),
+       GUI_PARAMETERS_Y + 8 + PARAMETER_SELECT_H * (idx%4) );
     guiTrain2->setPosition(
-                           GUI_PARAMETERS_X + (idx<4 ? 4 : 4+0.5*GUI_PARAMETERS_W),
-                           GUI_PARAMETERS_Y + 12 + PARAMETER_VIEW_H * (idx%4) );
+       GUI_PARAMETERS_X + (idx<4 ? 4 : 4+0.5*GUI_PARAMETERS_W),
+       GUI_PARAMETERS_Y + 12 + PARAMETER_VIEW_H * (idx%4) );
 }
 
 //-------
@@ -95,7 +101,6 @@ void OutputParameter::destroy() {
 
 //-------
 void OutputParameter::guiEvent(ofxUIEventArgs &e) {
-    cout << e.getName() << endl;
     if (e.getName() == "delete") {
         if (((ofxUIButton *) guiTrain1->getWidget("delete"))->getValue()) {
             return;
@@ -184,6 +189,8 @@ void OutputParameter::guiEvent(ofxUIEventArgs &e) {
         if (action == "OK") {
             classifier.clearTrainingInstances();
             ((ofxUITextInput *) guiTrain2->getWidget("numexamples"))->setTextString("0 examples");
+            guiTrain1->setDrawOutline(false);
+            guiTrain1->setDrawOutline(false);
         }
     }
     else if (e.getName() == "view") {
@@ -197,6 +204,18 @@ void OutputParameter::guiEvent(ofxUIEventArgs &e) {
         } else {
             guiTrain2->setColorBack(ofColor(30));
         }
+    }
+}
+
+//-------
+void OutputParameter::setIsTraining(bool training) {
+    this->training = training;
+    if (training) {
+        guiTrain2->setColorBack(ofColor(90, 10, 20));
+        ((ofxUIToggle *) guiTrain2->getWidget("train"))->setValue(true);
+    } else {
+        guiTrain2->setColorBack(ofColor(30));
+        ((ofxUIToggle *) guiTrain2->getWidget("train"))->setValue(false);
     }
 }
 
@@ -236,8 +255,15 @@ void OutputParameter::addExample(vector<double> example) {
 
 //-------
 void OutputParameter::trainClassifier(TrainMode trainMode) {
-    classifier.trainRegression(trainMode);
-    trained = true;
+    try {
+        classifier.trainRegression(trainMode);
+        trained = true;
+        guiTrain1->setDrawOutline(true);
+        guiTrain2->setDrawOutline(true);
+    } catch (exception &e) {
+        cout << "error training classifier: " << e.what() << endl;
+        trained = false;
+    }
 }
 
 //-------
