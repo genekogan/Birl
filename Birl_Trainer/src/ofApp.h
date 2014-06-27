@@ -3,6 +3,7 @@
 
 #include "ofMain.h"
 #include "ofxUI.h"
+#include "ofxOsc.h"
 #include "Constants.h"
 #include "OutputParameter.h"
 #include "Birl.h"
@@ -14,12 +15,13 @@ class ofApp : public ofBaseApp
 public:
     void setup();
     void update();
-    void setMode(Mode mode);
     void draw();
     void keyPressed(int key);
     
-protected:
+private:
+    void setMode(Mode mode);
     void checkIfDeleteParameters();
+
     void guiMainEvent(ofxUIEventArgs &e);
     void guiSelectEvent(ofxUIEventArgs &e);
     void guiMonitorEvent(ofxUIEventArgs &e);
@@ -28,8 +30,12 @@ protected:
     
     void toggleRecording(bool toRecord);
     void trainClassifiers(TrainMode trainMode);
-    
-    ofxUISuperCanvas *guiMain, *guiSelect, *guiMonitor, *guiRecord, *guiPlay;
+    void predictOutputParameters();
+    void sendOutputParametersOsc();
+
+    ofxUICanvas      *guiMain;
+    ofxUISuperCanvas *guiSelect, *guiMonitor,
+                     *guiRecord, *guiPlay;
     Mode mode;
     
     string trainingMessage;
@@ -39,10 +45,12 @@ protected:
     PresetManager presetManager;
     vector<OutputParameter *> outputParameters;
     
-    bool recording, predicting, countingDown;
+    ofxOscSender osc;
+    
+    bool recording, predicting, countingDown, sendingOsc;
     float timerLast, timer;
     float countdown = 2;
-    float duration = 3;
+    float duration = 2;
     
     ofTrueTypeFont geneva;
 };

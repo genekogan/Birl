@@ -6,7 +6,7 @@ void Birl::setup(int port) {
     
     keys.resize(KEYS_NUMBER);
     keysDiscrete.resize(KEYS_NUMBER);
-    pressure.resize(2);
+    pressure.resize(PRESSURE_NUMBER);
     embouchure.resize(EMBOUCHURE_NUMBER);
 }
 
@@ -18,8 +18,9 @@ void Birl::updateFake() {
     for (int i=0; i<EMBOUCHURE_NUMBER; i++) {
         embouchure[i] = ofNoise(i*0.1, 0.05*ofGetFrameNum());
     }
-    pressure[0] = max(0.0f,  1.0f-2.0f*ofNoise(0.05*ofGetFrameNum()));
-    pressure[1] = max(0.0f, -1.0f+2.0f*ofNoise(0.05*ofGetFrameNum()));
+    for (int i=0; i<PRESSURE_NUMBER; i++) {
+        pressure[i] = max(0.0f, (i%2==0?-1:1)*(1.0f-2.0f*ofNoise(0.05*ofGetFrameNum())));
+    }
 }
 
 //-------
@@ -31,8 +32,8 @@ void Birl::update() {
         osc.getNextMessage(&m);
         if (m.getAddress() == "/birl/keys/") {
             for (int i=0; i<KEYS_NUMBER; i++) {
-                keys[i] = ofClamp(ofMap(m.getArgAsInt32(i), 0, MAX_KEY_VALUE, 0, 1), 0, 1);
-                keysDiscrete[i] = keys[i] > 0.5 ? 1.0 : 0.0;
+                keys[i] = ofClamp(ofMap(m.getArgAsInt32(i), 0, KEYS_MAX, 0, 1), 0, 1);
+                keysDiscrete[i] = keys[i] > KEYS_DISCRETE_THRESHOLD ? 1.0 : 0.0;
             }
         }
         else if (m.getAddress() == "/birl/breathpos/") {
@@ -47,23 +48,12 @@ void Birl::update() {
         else if (m.getAddress() == "/birl/maxbreathneg/") {
             maxbreathneg = m.getArgAsInt32(0);
         }
+        else if (m.getAddress() == "/birl/embouchure/") {
+            for (int i=0; i<EMBOUCHURE_NUMBER; i++) {
+                embouchure[i] = ofMap(m.getArgAsInt32(i), 0, EMBOUCHURE_MAX, 0, 1);
+            }
+        }
     }
-}
-
-vector<float> Birl::getKeys() {
-    return keys;
-}
-
-vector<float> Birl::getKeysDiscrete() {
-    return keysDiscrete;
-}
-
-vector<float> Birl::getPressure() {
-    return pressure;
-}
-
-vector<float> Birl::getEmbouchure() {
-    return embouchure;
 }
 
 //-------

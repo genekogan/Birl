@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:Birl_Trainer_Osc2.xcodeproj">
+      location = "self:Birl_Trainer_osc2.xcodeproj">
    </FileRef>
 </Workspace>

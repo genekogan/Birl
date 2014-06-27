@@ -7,7 +7,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>English</string>
 	<key>CFBundleExecutable</key>
-	<string>Birl_Trainer_Osc2Debug</string>
+	<string>Birl_Trainer_osc2Debug</string>
 	<key>CFBundleIconFile</key>
 	<string>icon-debug.icns</string>
 	<key>CFBundleIdentifier</key>

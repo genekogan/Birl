@@ -5,74 +5,76 @@
 void ofApp::setup(){
     geneva.loadFont("Geneva", 32);
 
-    // setup birl
+    // setup main parts
     birl.setup(BIRL_PORT);
+    presetManager.setup(&outputParameters);
+    osc.setup(SYNTH_HOST, SYNTH_PORT);
     
-    // setup output parameters
+    // default parameters on startup
     OutputParameter *p1 = new OutputParameter(0, "freq", 40, 1000);
     OutputParameter *p2 = new OutputParameter(1, "amp", 0, 1);
     OutputParameter *p3 = new OutputParameter(2, "timbre1", 0, 1);
-//    OutputParameter *p4 = new OutputParameter(3, "timbre2", 0, 1);
-//    OutputParameter *p5 = new OutputParameter(4, "timbre3", 0, 1);
-//    OutputParameter *p6 = new OutputParameter(5, "timbre4", 0, 1);
-
     outputParameters.push_back(p1);
     outputParameters.push_back(p2);
     outputParameters.push_back(p3);
-//    outputParameters.push_back(p4);
-//    outputParameters.push_back(p5);
-//    outputParameters.push_back(p6);
 
-    
     // setup main gui
     vector<string> modes;
     modes.push_back("Perform");
     modes.push_back("Train");
-    guiMain = new ofxUISuperCanvas("Select mode");
-    guiMain->setPosition(2, 0);
-    guiMain->setWidth(170);
-    guiMain->setHeight(42);
+    guiMain = new ofxUICanvas(3, 3, 189, 24);
 	guiMain->addRadio("Selection", modes, OFX_UI_ORIENTATION_HORIZONTAL);
 
-    
     // setup training guis
     guiSelect = new ofxUISuperCanvas("Select");
-    guiSelect->setPosition(TRAIN_GUI_X+TRAIN_GUI_W-92, TRAIN_GUI_Y+TRAIN_GUI_H-92);
-    guiSelect->setWidth(90);
-    guiSelect->setHeight(90);
-    guiSelect->addButton("add new", false);
-    guiSelect->addButton("next", false);
+    guiSelect->setWidgetFontSize(OFX_UI_FONT_MEDIUM);
+    guiSelect->setWidgetSpacing(20);
+    guiSelect->setGlobalButtonDimension(72);
+    guiSelect->setPosition(TRAIN_GUI_X+4, TRAIN_GUI_Y+4);
+    guiSelect->setWidth(0.5*TRAIN_GUI_W);
+    guiSelect->setHeight(TRAIN_GUI_H-8);
+    guiSelect->addButton("add new", false)->setLabelPosition(OFX_UI_WIDGET_POSITION_DOWN);
+    guiSelect->setWidgetPosition(OFX_UI_WIDGET_POSITION_RIGHT);
+    guiSelect->addButton("next", false)->setLabelPosition(OFX_UI_WIDGET_POSITION_DOWN);
 
     guiMonitor = new ofxUISuperCanvas("Monitor");
-    guiMonitor->setPosition(TRAIN_GUI_X+TRAIN_GUI_W-112, TRAIN_GUI_Y+TRAIN_GUI_H-112);
-    guiMonitor->setWidth(110);
-    guiMonitor->setHeight(110);
-    guiMonitor->addButton("back", false);
-    guiMonitor->addButton("train fast", false);
-    guiMonitor->addButton("train accurate", false);
+    guiMonitor->setWidgetFontSize(OFX_UI_FONT_MEDIUM);
+    guiMonitor->setWidgetSpacing(14);
+    guiMonitor->setGlobalButtonDimension(72);
+    guiMonitor->setPosition(TRAIN_GUI_X+0.5*TRAIN_GUI_W, TRAIN_GUI_Y+4);
+    guiMonitor->setWidth(0.5*TRAIN_GUI_W-4);
+    guiMonitor->setHeight(TRAIN_GUI_H-8);
+    guiMonitor->addToggle("send osc", &sendingOsc)->setLabelPosition(OFX_UI_WIDGET_POSITION_DOWN);
+    guiMonitor->setWidgetPosition(OFX_UI_WIDGET_POSITION_RIGHT);
+    guiMonitor->addButton("train fast", false)->setLabelPosition(OFX_UI_WIDGET_POSITION_DOWN);;
+    guiMonitor->addButton("train accurate", false)->setLabelPosition(OFX_UI_WIDGET_POSITION_DOWN);;
+    guiMonitor->addButton("back", false)->setLabelPosition(OFX_UI_WIDGET_POSITION_DOWN);
     
     guiRecord = new ofxUISuperCanvas("Record");
+    guiRecord->setWidgetFontSize(OFX_UI_FONT_MEDIUM);
+    guiRecord->setWidgetSpacing(11);
     guiRecord->setGlobalButtonDimension(64);
     guiRecord->setDrawOutline(true);
-    guiRecord->setPosition(TRAIN_GUI_X+4, TRAIN_GUI_Y+TRAIN_GUI_H-172);
-    guiRecord->setWidth(0.49*TRAIN_GUI_W);
-    guiRecord->setHeight(165);
+    guiRecord->setPosition(TRAIN_GUI_X+4, TRAIN_GUI_Y+4);
+    guiRecord->setWidth(0.5*TRAIN_GUI_W-8);
+    guiRecord->setHeight(TRAIN_GUI_H-8);
     guiRecord->addToggle("record", false)->setLabelVisible(false);
     guiRecord->addLabel("Countdown");
     guiRecord->setWidgetPosition(OFX_UI_WIDGET_POSITION_RIGHT);
     guiRecord->addTextInput("countdown", ofToString(countdown), 50.0f)->setAutoClear(false);;
-    guiRecord->setWidgetPosition(OFX_UI_WIDGET_POSITION_DOWN);
     guiRecord->addLabel("Duration");
-    guiRecord->setWidgetPosition(OFX_UI_WIDGET_POSITION_RIGHT);
     guiRecord->addTextInput("duration", ofToString(duration), 50.0f)->setAutoClear(false);
 
     guiPlay = new ofxUISuperCanvas("Classifier trained!");
+    guiPlay->setWidgetFontSize(OFX_UI_FONT_MEDIUM);
+    guiPlay->setWidgetSpacing(14);
     guiPlay->setGlobalButtonDimension(72);
-    guiPlay->setPosition(TRAIN_GUI_X+4, TRAIN_GUI_Y+TRAIN_GUI_H-172);
+    guiPlay->setPosition(TRAIN_GUI_X+4, TRAIN_GUI_Y+4);
     guiPlay->setWidth(0.49*TRAIN_GUI_W);
-    guiPlay->setHeight(165);
+    guiPlay->setHeight(TRAIN_GUI_H-8);
     guiPlay->addToggle("predict", &predicting)->setLabelPosition(OFX_UI_WIDGET_POSITION_DOWN);
     guiPlay->setWidgetPosition(OFX_UI_WIDGET_POSITION_RIGHT);
+    guiPlay->addToggle("send osc", &sendingOsc)->setLabelPosition(OFX_UI_WIDGET_POSITION_DOWN);
     guiPlay->addButton("save", false)->setLabelPosition(OFX_UI_WIDGET_POSITION_DOWN);
     guiPlay->addButton("back", false)->setLabelPosition(OFX_UI_WIDGET_POSITION_DOWN);
 
@@ -83,29 +85,7 @@ void ofApp::setup(){
     ofAddListener(guiPlay->newGUIEvent, this, &ofApp::guiPlayEvent);
     
     // set initial mode
-    setMode(PERFORMANCE);
-}
-
-//-------
-void ofApp::guiSelectEvent(ofxUIEventArgs &e) {
-    if (e.getName() == "add new") {
-        if (((ofxUIButton *) e.widget)->getValue()==1) return;
-        int idx = outputParameters.size();
-        if (idx >= MAX_OUTPUT_PARAMETERS)  return;
-        OutputParameter *p = new OutputParameter(idx, "param"+ofToString(idx), 0, 10);
-        p->setMode(mode);
-        outputParameters.push_back(p);
-    }
-    else if (e.getName() == "next") {
-        if (((ofxUIButton *) e.widget)->getValue()==1) return;
-        for (int i=0; i<outputParameters.size(); i++) {
-            if (!outputParameters[i]->hasInput()) {
-                ofSystemAlertDialog("You must select at least one input for every output parameter before proceeding. Also say sorry.");
-                return;
-            }
-        }
-        setMode(TRAINING_RECORD);
-    }    
+    setMode(TRAINING_SELECT_OUTPUTS);
 }
 
 //-------
@@ -181,18 +161,39 @@ void ofApp::trainClassifiers(TrainMode trainMode) {
         }
     }
     cout << "finished training"<< endl;
-    setMode(TRAINING_PLAY);
 }
 
 //-------
 void ofApp::guiMainEvent(ofxUIEventArgs &e) {
     if (e.getName() == "Perform") {
-//        cout << "switch" << ((ofxUIToggle *) e.getParent())->getValue() << endl;
-        cout << "perform"<<endl;
+        cout << " set gui perform" << endl;
+        setMode(PERFORMANCE);
     }
     else if (e.getName() == "Train") {
-        cout << "train"<<endl;
+        setMode(TRAINING_SELECT_OUTPUTS);
     }
+}
+
+//-------
+void ofApp::guiSelectEvent(ofxUIEventArgs &e) {
+    if (e.getName() == "add new") {
+        if (((ofxUIButton *) e.widget)->getValue()==1) return;
+        int idx = outputParameters.size();
+        if (idx >= MAX_OUTPUT_PARAMETERS)  return;
+        OutputParameter *p = new OutputParameter(idx, "param"+ofToString(idx), 0, 10);
+        p->setMode(mode);
+        outputParameters.push_back(p);
+    }
+    else if (e.getName() == "next") {
+        if (((ofxUIButton *) e.widget)->getValue()==1) return;
+        for (int i=0; i<outputParameters.size(); i++) {
+            if (!outputParameters[i]->hasInput()) {
+                ofSystemAlertDialog("You must select at least one input for every output parameter before proceeding. Also say sorry.");
+                return;
+            }
+        }
+        setMode(TRAINING_RECORD);
+    }    
 }
 
 //-------
@@ -204,10 +205,12 @@ void ofApp::guiMonitorEvent(ofxUIEventArgs &e) {
     else if (e.getName() == "train fast") {
         if (((ofxUIButton *) e.widget)->getValue()==1) return;
         trainClassifiers(FAST);
-    }    
+        setMode(TRAINING_PLAY);
+    }
     else if (e.getName() == "train accurate") {
         if (((ofxUIButton *) e.widget)->getValue()==1) return;
         trainClassifiers(ACCURATE);
+        setMode(TRAINING_PLAY);
     }
 }
 
@@ -231,11 +234,11 @@ void ofApp::guiPlayEvent(ofxUIEventArgs &e) {
         setMode(TRAINING_RECORD);
         predicting = false;
     }
-    else if (e.getName() == "save preset") {
+    else if (e.getName() == "save") {
         if (((ofxUIButton *) e.widget)->getValue()==1) return;
-        // save preset
-        // go to performance mode
-    }    
+        presetManager.savePreset(outputParameters);
+        setMode(PERFORMANCE);
+    }
 }
 
 //-------
@@ -247,7 +250,10 @@ void ofApp::update(){
     switch (mode) {
         // PERFORMANCE MODE
         case PERFORMANCE:
-            
+            cout << " is predicting " << presetManager.isPredicting() << endl;
+            if (presetManager.isPredicting()) {
+                predictOutputParameters();
+            }
             break;
             
         // MODE OUTPUT SELECTION
@@ -276,7 +282,6 @@ void ofApp::update(){
                 // add instances
                 for (int i=0; i<outputParameters.size(); i++) {
                     if (outputParameters[i]->isTraining()) {
-                        
                         vector<double> instance;
                         if (outputParameters[i]->getInputKeys()) {
                             for (int i=0; i<keys.size(); i++) {
@@ -322,42 +327,58 @@ void ofApp::update(){
         // MODE PLAYING BACK TRAINED CLASSIFIER
         case TRAINING_PLAY:            
             if (predicting) {
-                vector<float> keys = birl.getKeys();
-                vector<float> keysDiscrete = birl.getKeysDiscrete();
-                vector<float> pressure = birl.getPressure();
-                vector<float> embouchure = birl.getEmbouchure();
-
-                // classify instance
-                for (int i=0; i<outputParameters.size(); i++) {
-                    
-                    vector<double> instance;
-                    if (outputParameters[i]->getInputKeys()) {
-                        for (int i=0; i<keys.size(); i++) {
-                            instance.push_back(keys[i]);
-                        }
-                    }
-                    else if (outputParameters[i]->getInputKeysDiscrete()) {
-                        for (int i=0; i<keysDiscrete.size(); i++) {
-                            instance.push_back(keysDiscrete[i]);
-                        }
-                    }
-                    if (outputParameters[i]->getInputPressure()) {
-                        instance.push_back(pressure[0]);
-                        instance.push_back(pressure[1]);
-                    }
-                    if (outputParameters[i]->getInputEmbouchure()) {
-                        for (int i=0; i<embouchure.size(); i++) {
-                            instance.push_back(embouchure[i]);
-                        }
-                    }
-                    
-                    outputParameters[i]->classifyInstance(instance);
-                }
+                predictOutputParameters();
             }
             break;
             
         default:
             break;
+    }
+    
+    // finally, send parameters out via OSC if requested
+    if (sendingOsc) {
+        sendOutputParametersOsc();
+    }
+}
+
+//-------
+void ofApp::predictOutputParameters() {
+    vector<float> keys = birl.getKeys();
+    vector<float> keysDiscrete = birl.getKeysDiscrete();
+    vector<float> pressure = birl.getPressure();
+    vector<float> embouchure = birl.getEmbouchure();
+    
+    // classify instance
+    for (int i=0; i<outputParameters.size(); i++) {
+        cout << " predict " << outputParameters[i]->getName() << endl;
+        vector<double> instance;
+        if (outputParameters[i]->getInputKeys()) {
+            for (int i=0; i<keys.size(); i++) {
+                instance.push_back(keys[i]);
+            }
+        }
+        else if (outputParameters[i]->getInputKeysDiscrete()) {
+            for (int i=0; i<keysDiscrete.size(); i++) {
+                instance.push_back(keysDiscrete[i]);
+            }
+        }
+        if (outputParameters[i]->getInputPressure()) {
+            instance.push_back(pressure[0]);
+            instance.push_back(pressure[1]);
+        }
+        if (outputParameters[i]->getInputEmbouchure()) {
+            for (int i=0; i<embouchure.size(); i++) {
+                instance.push_back(embouchure[i]);
+            }
+        }
+        outputParameters[i]->classifyInstance(instance);
+    }
+}
+
+//-------
+void ofApp::sendOutputParametersOsc() {
+    for (int i=0; i<outputParameters.size(); i++) {
+        outputParameters[i]->sendOsc(osc);
     }
 }
 
@@ -365,7 +386,6 @@ void ofApp::update(){
 void ofApp::setMode(Mode mode){
     this->mode = mode;
     for (int i=0; i<outputParameters.size(); i++) {
-        cout << "set train state " << i << endl;
         outputParameters[i]->setMode(mode);
     }
     switch (mode) {
@@ -373,7 +393,8 @@ void ofApp::setMode(Mode mode){
             guiSelect->setVisible(false);
             guiMonitor->setVisible(false);
             guiRecord->setVisible(false);
-            guiPlay->setVisible(true);
+            guiPlay->setVisible(false);
+            presetManager.setVisible(true);
             recording = false;
             predicting = false;
             break;
@@ -383,6 +404,7 @@ void ofApp::setMode(Mode mode){
             guiMonitor->setVisible(false);
             guiRecord->setVisible(false);
             guiPlay->setVisible(false);
+            presetManager.setVisible(false);
             break;
             
         case TRAINING_RECORD:
@@ -390,6 +412,7 @@ void ofApp::setMode(Mode mode){
             guiMonitor->setVisible(true);
             guiRecord->setVisible(true);
             guiPlay->setVisible(false);
+            presetManager.setVisible(false);
             break;
             
         case TRAINING_PLAY:
@@ -398,6 +421,7 @@ void ofApp::setMode(Mode mode){
             guiRecord->setVisible(false);
             guiPlay->setVisible(true);
             predicting = true;
+            presetManager.setVisible(false);
             break;
             
         default:
@@ -409,12 +433,15 @@ void ofApp::setMode(Mode mode){
 void ofApp::draw(){
     // draw birl
     birl.draw(BIRL_DRAW_X, BIRL_DRAW_Y, BIRL_DRAW_W, BIRL_DRAW_H);
-        
+    
+    // gray boxes in training gui
+    ofSetColor(50);
+    ofRectRounded(GUI_PARAMETERS_X, GUI_PARAMETERS_Y, GUI_PARAMETERS_W, GUI_PARAMETERS_H, 6);
+    ofRectRounded(TRAIN_GUI_X, TRAIN_GUI_Y, TRAIN_GUI_W, TRAIN_GUI_H, 6);
+    
     // draw additional elements for training gui
     ofPushMatrix();
     ofTranslate(TRAIN_GUI_X, TRAIN_GUI_Y);
-    ofSetColor(50);
-    ofRectRounded(0, 0, TRAIN_GUI_W, TRAIN_GUI_H, 6);
 
     switch (mode) {
         case TRAINING_SELECT_OUTPUTS:
@@ -423,11 +450,9 @@ void ofApp::draw(){
         case TRAINING_RECORD:
             ofSetColor(recording ? ofColor(255,0,0) : ofColor(255));
             if (countingDown || recording) {
-                geneva.drawString(ofToString(ceil(timer)),
-                    105, TRAIN_GUI_H-100);
+                geneva.drawString(ofToString(ceil(timer)), 120, 20);
             }
-            ofDrawBitmapString(trainingMessage,
-                10, TRAIN_GUI_H-18);
+            ofDrawBitmapString(trainingMessage, 10, TRAIN_GUI_H-18);
             break;
 
         case TRAINING_PLAY:
@@ -445,13 +470,13 @@ void ofApp::keyPressed(int key){
         ((ofxUIToggle *) guiRecord->getWidget("record"))->toggleValue();
         toggleRecording( ((ofxUIToggle *) guiRecord->getWidget("record"))->getValue() );
     }
-    else if (key=='1') {
-        presetManager.savePreset(outputParameters);
-    }
-    else if (key=='2') {
-        presetManager.loadPreset("presets/newguy.xml", outputParameters);
-        setMode(TRAINING_SELECT_OUTPUTS);
-    }
+//    else if (key=='1') {
+//        presetManager.savePreset(outputParameters);
+//    }
+//    else if (key=='2') {
+//        presetManager.loadPreset("presets/newguy.xml", outputParameters);
+//        setMode(TRAINING_SELECT_OUTPUTS);
+//    }
 }
 
 //-------

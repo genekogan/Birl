@@ -53,7 +53,7 @@
 		B032D627195A0C0100913306 /* OutputParameter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B032D625195A0C0100913306 /* OutputParameter.cpp */; };
 		B032D62C195A37E000913306 /* Birl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B032D62A195A37E000913306 /* Birl.cpp */; };
 		B032D637195B7EC200913306 /* PresetManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B032D635195B7EC100913306 /* PresetManager.cpp */; };
-		B032D649195C8B2200913306 /* birlicon4.icns in Resources */ = {isa = PBXBuildFile; fileRef = B032D648195C8B2200913306 /* birlicon4.icns */; };
+		B032D655195CC45400913306 /* birlicon4.icns in Resources */ = {isa = PBXBuildFile; fileRef = B032D654195CC45400913306 /* birlicon4.icns */; };
 		B0AACD6B19269FF30055DE43 /* ofxLearn.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B0AACD6919269FF30055DE43 /* ofxLearn.cpp */; };
 		BBAB23CB13894F3D00AA2426 /* GLUT.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = BBAB23BE13894E4700AA2426 /* GLUT.framework */; };
 		BFEFCE32DAFE10A8EB519F6C /* ofxUISpacer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 30CBAAEC78A0E9EBBB10A05A /* ofxUISpacer.cpp */; };
@@ -224,7 +224,7 @@
 		B032D632195B195A00913306 /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		B032D635195B7EC100913306 /* PresetManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PresetManager.cpp; sourceTree = "<group>"; };
 		B032D636195B7EC200913306 /* PresetManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PresetManager.h; sourceTree = "<group>"; };
-		B032D648195C8B2200913306 /* birlicon4.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = birlicon4.icns; path = ../../../../../Desktop/birlicon4.icns; sourceTree = "<group>"; };
+		B032D654195CC45400913306 /* birlicon4.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = birlicon4.icns; sourceTree = "<group>"; };
 		B0AACD6919269FF30055DE43 /* ofxLearn.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxLearn.cpp; sourceTree = "<group>"; };
 		B0AACD6A19269FF30055DE43 /* ofxLearn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxLearn.h; sourceTree = "<group>"; };
 		B21E7E5F548EEA92F368040B /* tinyxml.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = tinyxml.h; path = ../../../addons/ofxXmlSettings/libs/tinyxml.h; sourceTree = SOURCE_ROOT; };
@@ -619,7 +619,7 @@
 		E4B69B4A0A3A1720003C02F2 = {
 			isa = PBXGroup;
 			children = (
-				B032D648195C8B2200913306 /* birlicon4.icns */,
+				B032D654195CC45400913306 /* birlicon4.icns */,
 				E4B6FCAD0C3E899E008CF71C /* openFrameworks-Info.plist */,
 				E4EB6923138AFD0F00A09F29 /* Project.xcconfig */,
 				E4B69E1C0A3A1BDC003C02F2 /* src */,
@@ -752,7 +752,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B032D649195C8B2200913306 /* birlicon4.icns in Resources */,
+				B032D655195CC45400913306 /* birlicon4.icns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

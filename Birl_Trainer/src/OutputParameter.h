@@ -2,6 +2,7 @@
 
 #include "ofMain.h"
 #include "ofxUI.h"
+#include "ofxOsc.h"
 #include "ofxLearn.h"
 #include "Constants.h"
 
@@ -44,6 +45,8 @@ public:
 
     string saveClassifier(string presetName);
     void loadClassifier(string path);
+    
+    void sendOsc(ofxOscSender &osc);
 
 protected:
     void guiEvent(ofxUIEventArgs &e);

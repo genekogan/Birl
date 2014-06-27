@@ -50,10 +50,10 @@
 		ADE367465D2A8EBAD4C7A8D9 /* IpEndpointName.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ADD194746185E2DA11468377 /* IpEndpointName.cpp */; };
 		ADE7C2AFC51E3F7E5E389026 /* ofxUISortableList.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5613D5D24B00D8AD909F7E6A /* ofxUISortableList.cpp */; };
 		AE281BEBF3A00F1FC37F3DA0 /* ofxUIWaveform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9345327AA463407B3DADBADE /* ofxUIWaveform.cpp */; };
-		B0306E12195756F200F37FEA /* Birl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B0306E10195756F200F37FEA /* Birl.cpp */; };
-		B0306E151957570200F37FEA /* SynthParameter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B0306E131957570200F37FEA /* SynthParameter.cpp */; };
-		B0306E2B1958B3A900F37FEA /* SynthManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B0306E291958B3A900F37FEA /* SynthManager.cpp */; };
-		B0AACD6B19269FF30055DE43 /* ofxLearn.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B0AACD6919269FF30055DE43 /* ofxLearn.cpp */; };
+		B0250F21195CD7B600FB3864 /* ofxLearn.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B0250F1F195CD7B600FB3864 /* ofxLearn.cpp */; };
+		B032D676195CD6B700913306 /* Birl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B032D674195CD6B700913306 /* Birl.cpp */; };
+		B032D679195CD6C200913306 /* SynthManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B032D677195CD6C200913306 /* SynthManager.cpp */; };
+		B032D67C195CD6CB00913306 /* SynthParameter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B032D67A195CD6CB00913306 /* SynthParameter.cpp */; };
 		BBAB23CB13894F3D00AA2426 /* GLUT.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = BBAB23BE13894E4700AA2426 /* GLUT.framework */; };
 		BFEFCE32DAFE10A8EB519F6C /* ofxUISpacer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 30CBAAEC78A0E9EBBB10A05A /* ofxUISpacer.cpp */; };
 		C30B3A2A37F8F32EE7318718 /* ofxUILabelToggle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 76AF3B44E0E2FA8BFBD5F592 /* ofxUILabelToggle.cpp */; };
@@ -216,14 +216,14 @@
 		ADD194746185E2DA11468377 /* IpEndpointName.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = IpEndpointName.cpp; path = ../../../addons/ofxOsc/libs/oscpack/src/ip/IpEndpointName.cpp; sourceTree = SOURCE_ROOT; };
 		AE335EB4709BFD4671EEAC84 /* MessageMappingOscPacketListener.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = MessageMappingOscPacketListener.h; path = ../../../addons/ofxOsc/libs/oscpack/src/osc/MessageMappingOscPacketListener.h; sourceTree = SOURCE_ROOT; };
 		AEFCF7E549ACA862C022AD40 /* ofxUIDefines.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxUIDefines.h; path = ../../../addons/ofxUI/src/ofxUIDefines.h; sourceTree = SOURCE_ROOT; };
-		B0306E10195756F200F37FEA /* Birl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Birl.cpp; sourceTree = "<group>"; };
-		B0306E11195756F200F37FEA /* Birl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Birl.h; sourceTree = "<group>"; };
-		B0306E131957570200F37FEA /* SynthParameter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SynthParameter.cpp; sourceTree = "<group>"; };
-		B0306E141957570200F37FEA /* SynthParameter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SynthParameter.h; sourceTree = "<group>"; };
-		B0306E291958B3A900F37FEA /* SynthManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SynthManager.cpp; sourceTree = "<group>"; };
-		B0306E2A1958B3A900F37FEA /* SynthManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SynthManager.h; sourceTree = "<group>"; };
-		B0AACD6919269FF30055DE43 /* ofxLearn.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxLearn.cpp; sourceTree = "<group>"; };
-		B0AACD6A19269FF30055DE43 /* ofxLearn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxLearn.h; sourceTree = "<group>"; };
+		B0250F1F195CD7B600FB3864 /* ofxLearn.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxLearn.cpp; sourceTree = "<group>"; };
+		B0250F20195CD7B600FB3864 /* ofxLearn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxLearn.h; sourceTree = "<group>"; };
+		B032D674195CD6B700913306 /* Birl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Birl.cpp; sourceTree = "<group>"; };
+		B032D675195CD6B700913306 /* Birl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Birl.h; sourceTree = "<group>"; };
+		B032D677195CD6C200913306 /* SynthManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SynthManager.cpp; sourceTree = "<group>"; };
+		B032D678195CD6C200913306 /* SynthManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SynthManager.h; sourceTree = "<group>"; };
+		B032D67A195CD6CB00913306 /* SynthParameter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SynthParameter.cpp; sourceTree = "<group>"; };
+		B032D67B195CD6CB00913306 /* SynthParameter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SynthParameter.h; sourceTree = "<group>"; };
 		B21E7E5F548EEA92F368040B /* tinyxml.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = tinyxml.h; path = ../../../addons/ofxXmlSettings/libs/tinyxml.h; sourceTree = SOURCE_ROOT; };
 		B31C608870ECEB2490A93736 /* ofxOscParameterSync.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxOscParameterSync.h; path = ../../../addons/ofxOsc/src/ofxOscParameterSync.h; sourceTree = SOURCE_ROOT; };
 		B3CA0202B1A3B6D8920C2B15 /* ofxUIButton.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxUIButton.h; path = ../../../addons/ofxUI/src/ofxUIButton.h; sourceTree = SOURCE_ROOT; };
@@ -259,7 +259,7 @@
 		E45BE9770E8CC7DD009D7055 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = /System/Library/Frameworks/CoreServices.framework; sourceTree = "<absolute>"; };
 		E45BE9790E8CC7DD009D7055 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = /System/Library/Frameworks/OpenGL.framework; sourceTree = "<absolute>"; };
 		E45BE97A0E8CC7DD009D7055 /* QuickTime.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickTime.framework; path = /System/Library/Frameworks/QuickTime.framework; sourceTree = "<absolute>"; };
-		E4B69B5B0A3A1756003C02F2 /* Birl_Trainer_Osc2Debug.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Birl_Trainer_Osc2Debug.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E4B69B5B0A3A1756003C02F2 /* Birl_Trainer_osc2Debug.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Birl_Trainer_osc2Debug.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4B69E1D0A3A1BDC003C02F2 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = src/main.cpp; sourceTree = SOURCE_ROOT; };
 		E4B69E1E0A3A1BDC003C02F2 /* ofApp.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofApp.cpp; path = src/ofApp.cpp; sourceTree = SOURCE_ROOT; };
 		E4B69E1F0A3A1BDC003C02F2 /* ofApp.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = ofApp.h; path = src/ofApp.h; sourceTree = SOURCE_ROOT; };
@@ -400,19 +400,19 @@
 			name = ofxUI;
 			sourceTree = "<group>";
 		};
-		B0AACD6719269FE50055DE43 /* ofxLearn */ = {
+		B0250F1D195CD7A400FB3864 /* ofxLearn */ = {
 			isa = PBXGroup;
 			children = (
-				B0AACD6819269FF30055DE43 /* src */,
+				B0250F1E195CD7B600FB3864 /* src */,
 			);
 			name = ofxLearn;
 			sourceTree = "<group>";
 		};
-		B0AACD6819269FF30055DE43 /* src */ = {
+		B0250F1E195CD7B600FB3864 /* src */ = {
 			isa = PBXGroup;
 			children = (
-				B0AACD6919269FF30055DE43 /* ofxLearn.cpp */,
-				B0AACD6A19269FF30055DE43 /* ofxLearn.h */,
+				B0250F1F195CD7B600FB3864 /* ofxLearn.cpp */,
+				B0250F20195CD7B600FB3864 /* ofxLearn.h */,
 			);
 			name = src;
 			path = ../../../addons/ofxLearn/src;
@@ -430,7 +430,7 @@
 		BB4B014C10F69532006C3DED /* addons */ = {
 			isa = PBXGroup;
 			children = (
-				B0AACD6719269FE50055DE43 /* ofxLearn */,
+				B0250F1D195CD7A400FB3864 /* ofxLearn */,
 				E6053AB7FEC63D5F83825B88 /* ofxOsc */,
 				1F4FB5C423662B96ADFDCC0B /* ofxXmlSettings */,
 				A492CE86424AB8905550BFD8 /* ofxUI */,
@@ -622,7 +622,7 @@
 				E4EEC9E9138DF44700A80321 /* openFrameworks */,
 				BB4B014C10F69532006C3DED /* addons */,
 				E45BE5980E8CC70C009D7055 /* frameworks */,
-				E4B69B5B0A3A1756003C02F2 /* Birl_Trainer_Osc2Debug.app */,
+				E4B69B5B0A3A1756003C02F2 /* Birl_Trainer_osc2Debug.app */,
 			);
 			sourceTree = "<group>";
 		};
@@ -632,12 +632,12 @@
 				E4B69E1D0A3A1BDC003C02F2 /* main.cpp */,
 				E4B69E1E0A3A1BDC003C02F2 /* ofApp.cpp */,
 				E4B69E1F0A3A1BDC003C02F2 /* ofApp.h */,
-				B0306E10195756F200F37FEA /* Birl.cpp */,
-				B0306E11195756F200F37FEA /* Birl.h */,
-				B0306E131957570200F37FEA /* SynthParameter.cpp */,
-				B0306E141957570200F37FEA /* SynthParameter.h */,
-				B0306E291958B3A900F37FEA /* SynthManager.cpp */,
-				B0306E2A1958B3A900F37FEA /* SynthManager.h */,
+				B032D674195CD6B700913306 /* Birl.cpp */,
+				B032D675195CD6B700913306 /* Birl.h */,
+				B032D677195CD6C200913306 /* SynthManager.cpp */,
+				B032D678195CD6C200913306 /* SynthManager.h */,
+				B032D67A195CD6CB00913306 /* SynthParameter.cpp */,
+				B032D67B195CD6CB00913306 /* SynthParameter.h */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;
@@ -678,9 +678,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		E4B69B5A0A3A1756003C02F2 /* Birl_Trainer_Osc2 */ = {
+		E4B69B5A0A3A1756003C02F2 /* Birl_Trainer_osc2 */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = E4B69B5F0A3A1757003C02F2 /* Build configuration list for PBXNativeTarget "Birl_Trainer_Osc2" */;
+			buildConfigurationList = E4B69B5F0A3A1757003C02F2 /* Build configuration list for PBXNativeTarget "Birl_Trainer_osc2" */;
 			buildPhases = (
 				E4B69B580A3A1756003C02F2 /* Sources */,
 				E4B69B590A3A1756003C02F2 /* Frameworks */,
@@ -692,9 +692,9 @@
 			dependencies = (
 				E4EEB9AC138B136A00A80321 /* PBXTargetDependency */,
 			);
-			name = Birl_Trainer_Osc2;
+			name = Birl_Trainer_osc2;
 			productName = myOFApp;
-			productReference = E4B69B5B0A3A1756003C02F2 /* Birl_Trainer_Osc2Debug.app */;
+			productReference = E4B69B5B0A3A1756003C02F2 /* Birl_Trainer_osc2Debug.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -705,7 +705,7 @@
 			attributes = {
 				LastUpgradeCheck = 0460;
 			};
-			buildConfigurationList = E4B69B4D0A3A1720003C02F2 /* Build configuration list for PBXProject "Birl_Trainer_Osc2" */;
+			buildConfigurationList = E4B69B4D0A3A1720003C02F2 /* Build configuration list for PBXProject "Birl_Trainer_osc2" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -726,7 +726,7 @@
 			);
 			projectRoot = "";
 			targets = (
-				E4B69B5A0A3A1756003C02F2 /* Birl_Trainer_Osc2 */,
+				E4B69B5A0A3A1756003C02F2 /* Birl_Trainer_osc2 */,
 			);
 		};
 /* End PBXProject section */
@@ -826,10 +826,10 @@
 				AE281BEBF3A00F1FC37F3DA0 /* ofxUIWaveform.cpp in Sources */,
 				82845E1F8C90E1F5A99D9868 /* ofxUIWidget.cpp in Sources */,
 				CE5D89B9893EAA12F511DCAC /* ofxUIWidgetWithLabel.cpp in Sources */,
-				B0AACD6B19269FF30055DE43 /* ofxLearn.cpp in Sources */,
-				B0306E12195756F200F37FEA /* Birl.cpp in Sources */,
-				B0306E151957570200F37FEA /* SynthParameter.cpp in Sources */,
-				B0306E2B1958B3A900F37FEA /* SynthManager.cpp in Sources */,
+				B032D676195CD6B700913306 /* Birl.cpp in Sources */,
+				B032D679195CD6C200913306 /* SynthManager.cpp in Sources */,
+				B032D67C195CD6CB00913306 /* SynthParameter.cpp in Sources */,
+				B0250F21195CD7B600FB3864 /* ofxLearn.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -878,6 +878,7 @@
 					../../../addons/ofxXmlSettings/src,
 					../../../addons/ofxUI/libs,
 					../../../addons/ofxUI/src,
+					../../../addons/ofxLearn/libs,
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				OTHER_CPLUSPLUSFLAGS = (
@@ -886,7 +887,6 @@
 					"-mtune=native",
 				);
 				SDKROOT = macosx;
-				USER_HEADER_SEARCH_PATHS = ../../../addons/ofxLearn/libs/;
 			};
 			name = Debug;
 		};
@@ -925,6 +925,7 @@
 					../../../addons/ofxXmlSettings/src,
 					../../../addons/ofxUI/libs,
 					../../../addons/ofxUI/src,
+					../../../addons/ofxLearn/libs,
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				OTHER_CPLUSPLUSFLAGS = (
@@ -933,7 +934,6 @@
 					"-mtune=native",
 				);
 				SDKROOT = macosx;
-				USER_HEADER_SEARCH_PATHS = ../../../addons/ofxLearn/libs/;
 			};
 			name = Release;
 		};
@@ -1018,8 +1018,7 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_51)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_52)",
 				);
-				PRODUCT_NAME = Birl_Trainer_Osc2Debug;
-				USER_HEADER_SEARCH_PATHS = ../../../addons/ofxLearn/libs/;
+				PRODUCT_NAME = Birl_Trainer_osc2Debug;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1104,8 +1103,7 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_50)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_51)",
 				);
-				PRODUCT_NAME = Birl_Trainer_Osc2;
-				USER_HEADER_SEARCH_PATHS = ../../../addons/ofxLearn/libs/;
+				PRODUCT_NAME = Birl_Trainer_osc2;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -1113,7 +1111,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		E4B69B4D0A3A1720003C02F2 /* Build configuration list for PBXProject "Birl_Trainer_Osc2" */ = {
+		E4B69B4D0A3A1720003C02F2 /* Build configuration list for PBXProject "Birl_Trainer_osc2" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E4B69B4E0A3A1720003C02F2 /* Debug */,
@@ -1122,7 +1120,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		E4B69B5F0A3A1757003C02F2 /* Build configuration list for PBXNativeTarget "Birl_Trainer_Osc2" */ = {
+		E4B69B5F0A3A1757003C02F2 /* Build configuration list for PBXNativeTarget "Birl_Trainer_osc2" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E4B69B600A3A1757003C02F2 /* Debug */,

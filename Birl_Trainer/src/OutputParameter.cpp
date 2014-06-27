@@ -11,11 +11,8 @@ OutputParameter::OutputParameter(int idx, string name, float minValue, float max
     
     
     guiTrain1 = new ofxUISuperCanvas("Parameter");
-    guiTrain1->setPosition(
-        TRAIN_GUI_X + (idx<5 ? 4 : 4+0.5*TRAIN_GUI_W),
-        TRAIN_GUI_Y + 12 + 146 * (idx%5) );
     guiTrain1->setWidth(0.49*TRAIN_GUI_W);
-    guiTrain1->setHeight(130);
+    guiTrain1->setHeight(PARAMETER_SELECT_H-15);
     guiTrain1->setColorOutline(ofColor(0,220,50));
     guiTrain1->setColorOutlineHighlight(ofColor(255, 0, 0));
     guiTrain1->setDrawOutline(true);
@@ -52,15 +49,11 @@ OutputParameter::OutputParameter(int idx, string name, float minValue, float max
     
     
     guiTrain2 = new ofxUISuperCanvas(name);    
-    guiTrain2->setPosition(
-       TRAIN_GUI_X + (idx<5 ? 4 : 4+0.5*TRAIN_GUI_W),
-       TRAIN_GUI_Y + 4 + 112 * (idx%5) );
-
     guiTrain2->setColorOutline(ofColor(0,220,50));
     guiTrain2->setColorOutlineHighlight(ofColor(255, 0, 0));
     guiTrain2->setDrawOutline(true);
     guiTrain2->setWidth(0.48*TRAIN_GUI_W);
-    guiTrain2->setHeight(107);
+    guiTrain2->setHeight(PARAMETER_VIEW_H-20);
     
     guiTrain2->setWidgetPosition(OFX_UI_WIDGET_POSITION_RIGHT);
     guiTrain2->addToggle("train", false);
@@ -77,6 +70,7 @@ OutputParameter::OutputParameter(int idx, string name, float minValue, float max
     guiTrain2->addButton("clear", false);
     guiTrain2->addButton("view", false);
     
+    reindex(idx);
     
     ofAddListener(guiTrain1->newGUIEvent, this, &OutputParameter::guiEvent);
     ofAddListener(guiTrain2->newGUIEvent, this, &OutputParameter::guiEvent);
@@ -86,11 +80,11 @@ OutputParameter::OutputParameter(int idx, string name, float minValue, float max
 void OutputParameter::reindex(int idx) {
     this->idx = idx;
     guiTrain1->setPosition(
-        TRAIN_GUI_X + (idx<5 ? 4 : 4+0.5*TRAIN_GUI_W),
-        TRAIN_GUI_Y + 12 + 146 * (idx%5) );
+       GUI_PARAMETERS_X + (idx<4 ? 4 : 4+0.5*GUI_PARAMETERS_W),
+       GUI_PARAMETERS_Y + 8 + PARAMETER_SELECT_H * (idx%4) );
     guiTrain2->setPosition(
-        TRAIN_GUI_X + (idx<5 ? 4 : 4+0.5*TRAIN_GUI_W),
-        TRAIN_GUI_Y + 4 + 112 * (idx%5) );
+       GUI_PARAMETERS_X + (idx<4 ? 4 : 4+0.5*GUI_PARAMETERS_W),
+       GUI_PARAMETERS_Y + 12 + PARAMETER_VIEW_H * (idx%4) );
 }
 
 //-------
@@ -204,7 +198,8 @@ void OutputParameter::guiEvent(ofxUIEventArgs &e) {
 void OutputParameter::setMode(Mode mode) {
     switch (mode) {
         case PERFORMANCE:
-            
+            guiTrain1->setVisible(false);
+            guiTrain2->setVisible(true);            
             break;
             
         case TRAINING_SELECT_OUTPUTS:
@@ -256,4 +251,12 @@ string OutputParameter::saveClassifier(string presetName) {
 void OutputParameter::loadClassifier(string path) {
     classifier.loadModel(path);
     trained = true;
+}
+
+//-------
+void OutputParameter::sendOsc(ofxOscSender &osc) {
+    ofxOscMessage m;
+    m.setAddress(oscAddress);
+    m.addFloatArg(value);
+    osc.sendMessage(m);
 }

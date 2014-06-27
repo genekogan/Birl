@@ -15,12 +15,12 @@ public:
     void updateFake();
     void draw(int x, int y, int w, int h);
 
-    vector<float> getKeys();
-    vector<float> getKeysDiscrete();
-    vector<float> getPressure();
-    vector<float> getEmbouchure();
+    vector<float> getKeys()         { return keys; }
+    vector<float> getKeysDiscrete() { return keysDiscrete; }
+    vector<float> getPressure()     { return pressure; }
+    vector<float> getEmbouchure()   { return embouchure; }
 
-protected:
+private:
     ofxOscReceiver osc;
     vector<float> keys;
     vector<float> keysDiscrete;

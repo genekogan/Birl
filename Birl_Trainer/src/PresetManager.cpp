@@ -1,13 +1,76 @@
 #include "PresetManager.h"
 
 //-------
-void PresetManager::loadPreset(string path, vector<OutputParameter *> &outputParameters) {
+void PresetManager::setup(vector<OutputParameter *> *outputParameters) {
+    this->outputParameters = outputParameters;
+    
+    gui = new ofxUISuperCanvas("Performance mode");
+    gui->setWidgetFontSize(OFX_UI_FONT_MEDIUM);
+    gui->setWidgetSpacing(14);
+    gui->setGlobalButtonDimension(72);
+    gui->setPosition(TRAIN_GUI_X+4, TRAIN_GUI_Y+4);
+    gui->setWidth(0.5*TRAIN_GUI_W);
+    gui->setHeight(TRAIN_GUI_H-8);
+    gui->addToggle("send osc", &sendingOsc)->setLabelPosition(OFX_UI_WIDGET_POSITION_DOWN);
+    gui->setWidgetPosition(OFX_UI_WIDGET_POSITION_RIGHT);
+    gui->addToggle("predicting", &predicting)->setLabelPosition(OFX_UI_WIDGET_POSITION_DOWN);
+    
+    // load presets
+    ofDirectory dir;
+	dir.allowExt("xml");
+	dir.open("presets/");
+	dir.listDir();
+    vector<string> presetList;
+	for(int i = 0; i < dir.size(); i++) {
+        cout << "preset " << dir.getName(i) << endl;
+		presetList.push_back(dir.getName(i));
+	}
+    
+    // preset menu
+    guiPresets = new ofxUISuperCanvas("Presets");
+    guiPresets->setWidgetFontSize(OFX_UI_FONT_MEDIUM);
+    guiPresets->setWidgetSpacing(14);
+    guiPresets->setGlobalButtonDimension(72);
+    guiPresets->setPosition(TRAIN_GUI_X+0.5*TRAIN_GUI_W+4, TRAIN_GUI_Y+4);
+    guiPresets->setWidth(0.5*TRAIN_GUI_W-8);
+    guiPresets->setHeight(TRAIN_GUI_H-8);
+    guiPresets->addDropDownList("presets", presetList, 220)->setAutoClose(true);
+
+    ofAddListener(gui->newGUIEvent, this, &PresetManager::guiPerformEvent);
+    ofAddListener(guiPresets->newGUIEvent, this, &PresetManager::guiPresetEvent);
+}
+
+//-------
+void PresetManager::setVisible(bool isVisible) {
+    gui->setVisible(isVisible);
+    guiPresets->setVisible(isVisible);
+}
+
+//-------
+void PresetManager::guiPerformEvent(ofxUIEventArgs &e) {
+}
+
+//-------
+void PresetManager::guiPresetEvent(ofxUIEventArgs &e) {
+    cout << e.getName() << endl;
+    cout << e.getParent()->getName()  << endl;
+	if (e.getParent()->getName() == "presets" && e.getKind() == OFX_UI_WIDGET_LABELTOGGLE) {
+        loadPreset("presets/"+e.getName()); //, *outputParameters);
+        for (int i=0; i<outputParameters->size(); i++) {
+            outputParameters->at(i)->setMode(PERFORMANCE);
+        }
+        cout << "load" << endl;
+    }
+}
+
+//-------
+void PresetManager::loadPreset(string path) { //, vector<OutputParameter *> *outputParameters) {
     ofXml xml;
     
-    for (int i=0; i<outputParameters.size(); i++) {
-        outputParameters[i]->destroy();
+    for (int i=0; i<outputParameters->size(); i++) {
+        outputParameters->at(i)->destroy();
     }
-    outputParameters.clear();
+    outputParameters->clear();
     
     xml.load(path);
     if(xml.exists("Metadata")) {
@@ -42,7 +105,7 @@ void PresetManager::loadPreset(string path, vector<OutputParameter *> &outputPar
                     param->setInputEmbouchure(inputEmbouchure);
                     param->reindex(idx);
                     
-                    outputParameters.push_back(param);
+                    outputParameters->push_back(param);
                     
                     string classifierPath = xml.getValue<string>("Classifier");
                     if (classifierPath != "") {
