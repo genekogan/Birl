@@ -208,14 +208,22 @@ void OutputParameter::guiEvent(ofxUIEventArgs &e) {
 }
 
 //-------
-void OutputParameter::setIsTraining(bool training) {
-    this->training = training;
-    if (training) {
-        guiTrain2->setColorBack(ofColor(90, 10, 20));
-        ((ofxUIToggle *) guiTrain2->getWidget("train"))->setValue(true);
-    } else {
+void OutputParameter::setTrainable(bool trainable) {
+    if (trainable) {
+        ((ofxUIToggle *) guiTrain2->getWidget("train"))->setVisible(true);
+        if (training) {
+            guiTrain2->setColorBack(ofColor(90, 10, 20));
+            ((ofxUIToggle *) guiTrain2->getWidget("train"))->setValue(true);
+        }
+        else {
+            guiTrain2->setColorBack(ofColor(30));
+            ((ofxUIToggle *) guiTrain2->getWidget("train"))->setValue(false);
+        }
+    }
+    else {
         guiTrain2->setColorBack(ofColor(30));
         ((ofxUIToggle *) guiTrain2->getWidget("train"))->setValue(false);
+        ((ofxUIToggle *) guiTrain2->getWidget("train"))->setVisible(false);
     }
 }
 
@@ -225,21 +233,25 @@ void OutputParameter::setMode(Mode mode) {
         case PERFORMANCE:
             guiTrain1->setVisible(false);
             guiTrain2->setVisible(true);
+            setTrainable(false);
             break;
             
         case TRAINING_SELECT_OUTPUTS:
             guiTrain1->setVisible(true);
             guiTrain2->setVisible(false);
+            setTrainable(true);
             break;
             
         case TRAINING_RECORD:
             guiTrain1->setVisible(false);
             guiTrain2->setVisible(true);
+            setTrainable(true);
             break;
             
         case TRAINING_PLAY:
             guiTrain1->setVisible(false);
             guiTrain2->setVisible(true);
+            setTrainable(true);
             break;
             
         default:

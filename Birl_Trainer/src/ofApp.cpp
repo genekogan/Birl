@@ -164,7 +164,7 @@ bool ofApp::trainClassifiers(TrainMode trainMode) {
     // start classifier thread
     classifierThread->start(toTrain, trainMode);
     for (int i=0; i<outputParameters.size(); i++) {
-        outputParameters[i]->setIsTraining(false);
+        outputParameters[i]->setTrainable(false);
     }
     setMode(TRAINING_TRAIN);
     return true;
@@ -431,6 +431,7 @@ void ofApp::setMode(Mode mode){
     }
     switch (mode) {
         case PERFORMANCE:
+            guiMain->setVisible(true);
             guiSelect->setVisible(false);
             guiMonitor->setVisible(false);
             guiRecord->setVisible(false);
@@ -441,6 +442,7 @@ void ofApp::setMode(Mode mode){
             break;
             
         case TRAINING_SELECT_OUTPUTS:
+            guiMain->setVisible(true);
             guiSelect->setVisible(true);
             guiMonitor->setVisible(false);
             guiRecord->setVisible(false);
@@ -449,6 +451,7 @@ void ofApp::setMode(Mode mode){
             break;
             
         case TRAINING_RECORD:
+            guiMain->setVisible(true);
             guiSelect->setVisible(false);
             guiMonitor->setVisible(true);
             guiRecord->setVisible(true);
@@ -457,6 +460,7 @@ void ofApp::setMode(Mode mode){
             break;
             
         case TRAINING_TRAIN:
+            guiMain->setVisible(false);
             guiSelect->setVisible(false);
             guiMonitor->setVisible(false);
             guiRecord->setVisible(false);
@@ -465,6 +469,7 @@ void ofApp::setMode(Mode mode){
             break;
             
         case TRAINING_PLAY:
+            guiMain->setVisible(true);
             guiSelect->setVisible(false);
             guiMonitor->setVisible(false);
             guiRecord->setVisible(false);

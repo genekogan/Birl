@@ -36,7 +36,7 @@ public:
     bool setInputKeysDiscrete(bool b) { inputKeysDiscrete = b; }
     bool setInputPressure(bool b)     { inputPressure = b; }
     bool setInputEmbouchure(bool b)   { inputEmbouchure = b; }
-    void setIsTraining(bool training);
+    void setTrainable(bool trainable);
     
     void setMode(Mode mode);
     

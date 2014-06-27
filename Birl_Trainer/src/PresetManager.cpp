@@ -69,14 +69,11 @@ void PresetManager::setSendingOsc(bool sendingOsc) {
 
 //-------
 void PresetManager::guiPresetEvent(ofxUIEventArgs &e) {
-    cout << e.getName() << endl;
-    cout << e.getParent()->getName()  << endl;
 	if (e.getParent()->getName() == "presets" && e.getKind() == OFX_UI_WIDGET_LABELTOGGLE) {
         loadPreset("presets/"+e.getName()); //, *outputParameters);
         for (int i=0; i<outputParameters->size(); i++) {
             outputParameters->at(i)->setMode(PERFORMANCE);
         }
-        cout << "load" << endl;
     }
 }
 
