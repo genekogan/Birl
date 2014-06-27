@@ -251,7 +251,7 @@ void OutputParameter::setMode(Mode mode) {
         case TRAINING_PLAY:
             guiTrain1->setVisible(false);
             guiTrain2->setVisible(true);
-            setTrainable(true);
+            setTrainable(false);
             break;
             
         default:
