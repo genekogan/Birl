@@ -11,7 +11,7 @@ OutputParameter::OutputParameter(int idx, string name, float minValue, float max
     
     
     guiTrain1 = new ofxUISuperCanvas("Parameter");
-    guiTrain1->setWidth(0.49*TRAIN_GUI_W);
+    guiTrain1->setWidth(0.49*GUI_TRAIN_W);
     guiTrain1->setHeight(PARAMETER_SELECT_H-15);
     guiTrain1->setColorOutline(ofColor(0,220,50));
     guiTrain1->setColorOutlineHighlight(ofColor(255, 0, 0));
@@ -48,11 +48,11 @@ OutputParameter::OutputParameter(int idx, string name, float minValue, float max
     guiTrain1->addToggle("embouchure", &inputEmbouchure);
     
     
-    guiTrain2 = new ofxUISuperCanvas(name);    
+    guiTrain2 = new ofxUISuperCanvas(name);
     guiTrain2->setColorOutline(ofColor(0,220,50));
     guiTrain2->setColorOutlineHighlight(ofColor(255, 0, 0));
     guiTrain2->setDrawOutline(true);
-    guiTrain2->setWidth(0.48*TRAIN_GUI_W);
+    guiTrain2->setWidth(0.48*GUI_TRAIN_W);
     guiTrain2->setHeight(PARAMETER_VIEW_H-20);
     
     guiTrain2->setWidgetPosition(OFX_UI_WIDGET_POSITION_RIGHT);
@@ -65,7 +65,7 @@ OutputParameter::OutputParameter(int idx, string name, float minValue, float max
     guiTrain2->addTextInput("valueTxt", ofToString(value), 50.0f, 22.0f)->setAutoClear(false);
     guiTrain2->setWidgetPosition(OFX_UI_WIDGET_POSITION_DOWN);
     guiTrain2->addTextArea("oscAddress", ofToString("osc: "+oscAddress))->setColorFill(ofColor(255, 160));
-    guiTrain2->addTextInput("numinstances", "0 instances", 125.0f);
+    guiTrain2->addTextInput("numexamples", "0 examples", 125.0f);
     guiTrain2->setWidgetPosition(OFX_UI_WIDGET_POSITION_RIGHT);
     guiTrain2->addButton("clear", false);
     guiTrain2->addButton("view", false);
@@ -80,11 +80,11 @@ OutputParameter::OutputParameter(int idx, string name, float minValue, float max
 void OutputParameter::reindex(int idx) {
     this->idx = idx;
     guiTrain1->setPosition(
-       GUI_PARAMETERS_X + (idx<4 ? 4 : 4+0.5*GUI_PARAMETERS_W),
-       GUI_PARAMETERS_Y + 8 + PARAMETER_SELECT_H * (idx%4) );
+                           GUI_PARAMETERS_X + (idx<4 ? 4 : 4+0.5*GUI_PARAMETERS_W),
+                           GUI_PARAMETERS_Y + 8 + PARAMETER_SELECT_H * (idx%4) );
     guiTrain2->setPosition(
-       GUI_PARAMETERS_X + (idx<4 ? 4 : 4+0.5*GUI_PARAMETERS_W),
-       GUI_PARAMETERS_Y + 12 + PARAMETER_VIEW_H * (idx%4) );
+                           GUI_PARAMETERS_X + (idx<4 ? 4 : 4+0.5*GUI_PARAMETERS_W),
+                           GUI_PARAMETERS_Y + 12 + PARAMETER_VIEW_H * (idx%4) );
 }
 
 //-------
@@ -95,6 +95,7 @@ void OutputParameter::destroy() {
 
 //-------
 void OutputParameter::guiEvent(ofxUIEventArgs &e) {
+    cout << e.getName() << endl;
     if (e.getName() == "delete") {
         if (((ofxUIButton *) guiTrain1->getWidget("delete"))->getValue()) {
             return;
@@ -118,6 +119,11 @@ void OutputParameter::guiEvent(ofxUIEventArgs &e) {
         name = ((ofxUITextInput *) guiTrain1->getWidget("name"))->getTextString();
         oscAddress = ofToString("/birl/"+name);
         ((ofxUITextInput *) guiTrain1->getWidget("osc"))->setTextString(oscAddress);
+        ((ofxUITextArea *) guiTrain2->getWidget("oscAddress"))->setTextString("osc: "+oscAddress);
+    }
+    else if (e.getName() == "osc") {
+        oscAddress = ((ofxUITextInput *) guiTrain1->getWidget("osc"))->getTextString();
+        ((ofxUITextArea *) guiTrain2->getWidget("oscAddress"))->setTextString("osc: "+oscAddress);
     }
     else if (e.getName() == "minimum") {
         if (((ofxUITextInput *) guiTrain1->getWidget("minimum"))->getInputTriggerType() == 1) {
@@ -127,7 +133,7 @@ void OutputParameter::guiEvent(ofxUIEventArgs &e) {
             return;
         }
         if (trained) {
-            string action = ofSystemTextBoxDialog("WARNING: this will erase the classifier and all recorded instances for this parameter. Type OK if you're cool with this.");
+            string action = ofSystemTextBoxDialog("WARNING: this will erase the classifier and all recorded examples for this parameter. Type OK if you're cool with this.");
             if (action != "OK") {
                 ((ofxUITextInput *) guiTrain1->getWidget("minimum"))->setTextString(ofToString(minValue));
                 return;
@@ -150,7 +156,7 @@ void OutputParameter::guiEvent(ofxUIEventArgs &e) {
             return;
         }
         if (trained) {
-            string action = ofSystemTextBoxDialog("WARNING: this will erase the classifier and all recorded instances for this parameter. Type OK if you're cool with this.");
+            string action = ofSystemTextBoxDialog("WARNING: this will erase the classifier and all recorded examples for this parameter. Type OK if you're cool with this.");
             if (action != "OK") {
                 ((ofxUITextInput *) guiTrain1->getWidget("maximum"))->setTextString(ofToString(maxValue));
                 return;
@@ -164,7 +170,7 @@ void OutputParameter::guiEvent(ofxUIEventArgs &e) {
         ((ofxUISlider *) guiTrain2->getWidget("value"))->setMax(maxValue);
         ((ofxUISlider *) guiTrain2->getWidget("value"))->setValue(value);
         ((ofxUITextInput *) guiTrain2->getWidget("valueTxt"))->setTextString(ofToString(value));
-    }    
+    }
     else if (e.getName() == "value") {
         ((ofxUITextInput *) guiTrain2->getWidget("valueTxt"))->setTextString(ofToString(value));
     }
@@ -177,13 +183,13 @@ void OutputParameter::guiEvent(ofxUIEventArgs &e) {
         string action = ofSystemTextBoxDialog("WARNING: Are you sure you want to erase all examples for this output parameter? Type OK to confirm.");
         if (action == "OK") {
             classifier.clearTrainingInstances();
-            ((ofxUITextInput *) guiTrain2->getWidget("numinstances"))->setTextString("0 instances");
+            ((ofxUITextInput *) guiTrain2->getWidget("numexamples"))->setTextString("0 examples");
         }
     }
     else if (e.getName() == "view") {
         if (((ofxUIButton *) e.widget)->getValue()==1) return;
         // TODO: viewing examples
-    }        
+    }
     else if (e.getName() == "train") {
         training = !training;
         if (training) {
@@ -199,7 +205,7 @@ void OutputParameter::setMode(Mode mode) {
     switch (mode) {
         case PERFORMANCE:
             guiTrain1->setVisible(false);
-            guiTrain2->setVisible(true);            
+            guiTrain2->setVisible(true);
             break;
             
         case TRAINING_SELECT_OUTPUTS:
@@ -214,7 +220,7 @@ void OutputParameter::setMode(Mode mode) {
             
         case TRAINING_PLAY:
             guiTrain1->setVisible(false);
-            guiTrain2->setVisible(true);            
+            guiTrain2->setVisible(true);
             break;
             
         default:
@@ -223,9 +229,9 @@ void OutputParameter::setMode(Mode mode) {
 }
 
 //-------
-void OutputParameter::addInstance(vector<double> instance) {
-    classifier.addTrainingInstance(instance, value);
-    ((ofxUITextInput *) guiTrain2->getWidget("numinstances"))->setTextString(ofToString(classifier.getNumberTrainingInstances())+" instances");
+void OutputParameter::addExample(vector<double> example) {
+    classifier.addTrainingInstance(example, value);
+    ((ofxUITextInput *) guiTrain2->getWidget("numexamples"))->setTextString(ofToString(classifier.getNumberTrainingInstances())+" examples");
 }
 
 //-------
@@ -235,8 +241,11 @@ void OutputParameter::trainClassifier(TrainMode trainMode) {
 }
 
 //-------
-void OutputParameter::classifyInstance(vector<double> instance) {
-    value = classifier.predict(instance);
+void OutputParameter::classifyExample(vector<double> example) {
+    value = classifier.predict(example);
+    if (FORCE_CLAMP_OUTPUT_PARAMETERS) {
+        value = ofClamp(value, minValue, maxValue);
+    }
     ((ofxUITextInput *) guiTrain2->getWidget("valueTxt"))->setTextString(ofToString(value));
 }
 

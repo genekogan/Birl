@@ -8,9 +8,9 @@ void PresetManager::setup(vector<OutputParameter *> *outputParameters) {
     gui->setWidgetFontSize(OFX_UI_FONT_MEDIUM);
     gui->setWidgetSpacing(14);
     gui->setGlobalButtonDimension(72);
-    gui->setPosition(TRAIN_GUI_X+4, TRAIN_GUI_Y+4);
-    gui->setWidth(0.5*TRAIN_GUI_W);
-    gui->setHeight(TRAIN_GUI_H-8);
+    gui->setPosition(GUI_TRAIN_X+4, GUI_TRAIN_Y+4);
+    gui->setWidth(0.5*GUI_TRAIN_W);
+    gui->setHeight(GUI_TRAIN_H-8);
     gui->addToggle("send osc", &sendingOsc)->setLabelPosition(OFX_UI_WIDGET_POSITION_DOWN);
     gui->setWidgetPosition(OFX_UI_WIDGET_POSITION_RIGHT);
     gui->addToggle("predicting", &predicting)->setLabelPosition(OFX_UI_WIDGET_POSITION_DOWN);
@@ -31,9 +31,9 @@ void PresetManager::setup(vector<OutputParameter *> *outputParameters) {
     guiPresets->setWidgetFontSize(OFX_UI_FONT_MEDIUM);
     guiPresets->setWidgetSpacing(14);
     guiPresets->setGlobalButtonDimension(72);
-    guiPresets->setPosition(TRAIN_GUI_X+0.5*TRAIN_GUI_W+4, TRAIN_GUI_Y+4);
-    guiPresets->setWidth(0.5*TRAIN_GUI_W-8);
-    guiPresets->setHeight(TRAIN_GUI_H-8);
+    guiPresets->setPosition(GUI_TRAIN_X+0.5*GUI_TRAIN_W+4, GUI_TRAIN_Y+4);
+    guiPresets->setWidth(0.5*GUI_TRAIN_W-8);
+    guiPresets->setHeight(GUI_TRAIN_H-8);
     guiPresets->addDropDownList("presets", presetList, 220)->setAutoClose(true);
 
     ofAddListener(gui->newGUIEvent, this, &PresetManager::guiPerformEvent);
@@ -118,6 +118,10 @@ void PresetManager::loadPreset(string path) { //, vector<OutputParameter *> *out
         }
         while (xml.setToSibling());
     }
+    
+    //  by default, after loading a preset, set sending osc and predicting to true
+    predicting = true;
+    sendingOsc = true;
 }
 
 //-------
@@ -162,8 +166,8 @@ void PresetManager::savePreset(vector<OutputParameter *> &outputParameters) {
     xml.save(ofToString("presets/"+newPresetName+".xml"));
     
     // add new preset to dropdown list
-    //ofxUIDropDownList *dd = (ofxUIDropDownList *) gui->getWidget("presets");
-    //dd->addToggle(newPresetName+".xml");
+    ofxUIDropDownList *dd = (ofxUIDropDownList *) guiPresets->getWidget("presets");
+    dd->addToggle("presets/"+newPresetName+".xml");
     
     cout << "Saved preset "<<newPresetName<< endl;
 }

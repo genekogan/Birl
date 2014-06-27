@@ -17,7 +17,7 @@ public:
     int getIndex()              { return idx; }
     string getName()            { return name; }
     string getOscAddress()      { return oscAddress; }
-    int getNumInstances()       { return classifier.getNumberTrainingInstances(); }
+    int getNumExamples()        { return classifier.getNumberTrainingInstances(); }
     float getValue()            { return value; }
     float getMinValue()         { return minValue; }
     float getMaxValue()         { return maxValue; }
@@ -29,9 +29,9 @@ public:
     bool getInputKeysDiscrete() { return inputKeysDiscrete; }
     bool getInputPressure()     { return inputPressure; }
     bool getInputEmbouchure()   { return inputEmbouchure; }
-
+    
     bool hasInput()             { return inputKeys | inputKeysDiscrete | inputPressure | inputEmbouchure; };
-
+    
     bool setInputKeys(bool b)         { inputKeys = b; }
     bool setInputKeysDiscrete(bool b) { inputKeysDiscrete = b; }
     bool setInputPressure(bool b)     { inputPressure = b; }
@@ -39,15 +39,15 @@ public:
     
     void setMode(Mode mode);
     
-    void addInstance(vector<double> instance);
+    void addExample(vector<double> example);
     void trainClassifier(TrainMode trainMode);
-    void classifyInstance(vector<double> instance);
-
+    void classifyExample(vector<double> example);
+    
     string saveClassifier(string presetName);
     void loadClassifier(string path);
     
     void sendOsc(ofxOscSender &osc);
-
+    
 protected:
     void guiEvent(ofxUIEventArgs &e);
     

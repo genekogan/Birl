@@ -25,7 +25,9 @@ void Birl::updateFake() {
 
 //-------
 void Birl::update() {
-    updateFake();
+    if (USE_FAKE_DATA) {
+        updateFake();
+    }
 
     while(osc.hasWaitingMessages()){
         ofxOscMessage m;

@@ -21,7 +21,7 @@ public:
 private:
     void setMode(Mode mode);
     void checkIfDeleteParameters();
-
+    
     void guiMainEvent(ofxUIEventArgs &e);
     void guiSelectEvent(ofxUIEventArgs &e);
     void guiMonitorEvent(ofxUIEventArgs &e);
@@ -32,10 +32,10 @@ private:
     void trainClassifiers(TrainMode trainMode);
     void predictOutputParameters();
     void sendOutputParametersOsc();
-
+    
     ofxUICanvas      *guiMain;
     ofxUISuperCanvas *guiSelect, *guiMonitor,
-                     *guiRecord, *guiPlay;
+    *guiRecord, *guiPlay;
     Mode mode;
     
     string trainingMessage;
