@@ -10,7 +10,3 @@ To run the Stk example, you also need [ofxStk](https://github.com/Ahbee/ofxStk).
 
 For the ML functionality, we are using ofxLearn, which wraps the [dlib library](http://dlib.net/). 
 
-todo:
- - saving/loading models, presets
- - better interface for performer
- - more STK models
