@@ -49,7 +49,6 @@ public:
     
     void sendOsc(ofxOscSender &osc);
     
-    
     void setTheme(int idxStyle);
     
     

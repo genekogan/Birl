@@ -1,7 +1,6 @@
 #include "PresetManager.h"
 
 
-
 //-------
 void PresetManager::setTheme(int idxStyle) {
     gui->setTheme(idxStyle);

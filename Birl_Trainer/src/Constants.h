@@ -30,6 +30,9 @@
  // forces predictions on output parameters to be clamped to the specified range
 #define FORCE_CLAMP_OUTPUT_PARAMETERS true
 
+// regression type either REGRESSION_SVM or REGRESSION_MLP
+#define REGRESSION_TYPE REGRESSION_MLP
+
 //------- POSITIONING CONSTANTS
 
 #define GUI_TRAIN_X 200

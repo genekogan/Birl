@@ -261,14 +261,15 @@ void OutputParameter::setMode(Mode mode) {
 
 //-------
 void OutputParameter::addExample(vector<double> example) {
-    classifier.addTrainingInstance(example, value);
+    double normalizedValue = ofMap(value, minValue, maxValue, 0.0f, 1.0f);
+    classifier.addTrainingInstance(example, normalizedValue);
     ((ofxUITextInput *) guiTrain2->getWidget("numexamples"))->setTextString(ofToString(classifier.getNumberTrainingInstances())+" examples");
 }
 
 //-------
 void OutputParameter::trainClassifier(TrainMode trainMode) {
     try {
-        classifier.trainRegression(trainMode);
+        classifier.trainRegression(trainMode, REGRESSION_TYPE);
         trained = true;
         guiTrain1->setDrawOutline(true);
         guiTrain2->setDrawOutline(true);
@@ -280,7 +281,8 @@ void OutputParameter::trainClassifier(TrainMode trainMode) {
 
 //-------
 void OutputParameter::classifyExample(vector<double> example) {
-    value = classifier.predict(example);
+    double normalizedValue = classifier.predict(example);
+    value = ofMap(normalizedValue, 0.0f, 1.0f, minValue, maxValue);
     if (FORCE_CLAMP_OUTPUT_PARAMETERS) {
         value = ofClamp(value, minValue, maxValue);
     }
