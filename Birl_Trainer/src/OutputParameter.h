@@ -4,6 +4,7 @@
 #include "ofxUI.h"
 #include "ofxOsc.h"
 #include "ofxLearn.h"
+#include "NeuralNet.h"
 #include "Constants.h"
 
 
@@ -18,6 +19,8 @@ public:
     string getName()            { return name; }
     string getOscAddress()      { return oscAddress; }
     int getNumExamples()        { return classifier.getNumberTrainingInstances(); }
+    int getNumberOfFeatures();
+    
     float getValue()            { return value; }
     float getMinValue()         { return minValue; }
     float getMaxValue()         { return maxValue; }
@@ -32,10 +35,10 @@ public:
     
     bool hasInput()             { return inputKeys | inputKeysDiscrete | inputPressure | inputEmbouchure; };
     
-    bool setInputKeys(bool b)         { inputKeys = b; }
-    bool setInputKeysDiscrete(bool b) { inputKeysDiscrete = b; }
-    bool setInputPressure(bool b)     { inputPressure = b; }
-    bool setInputEmbouchure(bool b)   { inputEmbouchure = b; }
+    void setInputKeys(bool b)         { inputKeys = b; }
+    void setInputKeysDiscrete(bool b) { inputKeysDiscrete = b; }
+    void setInputPressure(bool b)     { inputPressure = b; }
+    void setInputEmbouchure(bool b)   { inputEmbouchure = b; }
     void setTrainable(bool trainable);
     
     void setMode(Mode mode);
@@ -68,4 +71,5 @@ protected:
     ofxUISuperCanvas *guiTrain1, *guiTrain2;
     
     ofxLearn classifier;
+    NeuralNet neuralNet;
 };

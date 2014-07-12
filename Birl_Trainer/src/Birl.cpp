@@ -102,7 +102,6 @@ void Birl::draw(int x, int y, int w, int h) {
     }
     ofEndShape();
 
-    
     // draw breath pressure
     ofTranslate(0, BIRL_DRAW_EMBOUCHURE_H+15);
 
@@ -135,7 +134,7 @@ void Birl::draw(int x, int y, int w, int h) {
         ofPushMatrix();
         ofTranslate(w * fingerPositions[i].x,
                     keysHeight * fingerPositions[i].y);
-        
+
         ofFill();
         ofSetLineWidth(0);
         ofSetColor(255);

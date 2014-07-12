@@ -33,6 +33,9 @@
 // regression type either REGRESSION_SVM or REGRESSION_MLP
 #define REGRESSION_TYPE REGRESSION_MLP
 
+// if using MLP, define number of hidden layers
+#define MLP_NUM_HIDDEN_LAYERS 3
+
 //------- POSITIONING CONSTANTS
 
 #define GUI_TRAIN_X 200

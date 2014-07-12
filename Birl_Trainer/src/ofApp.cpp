@@ -210,17 +210,11 @@ void ofApp::guiMonitorEvent(ofxUIEventArgs &e) {
     }
     else if (e.getName() == "train fast") {
         if (((ofxUIButton *) e.widget)->getValue()==1) return;
-        bool trained = trainClassifiers(FAST);
-//        if (trained) {
-//            setMode(TRAINING_PLAY);
-//        }
+        trainClassifiers(FAST);
     }
     else if (e.getName() == "train accurate") {
         if (((ofxUIButton *) e.widget)->getValue()==1) return;
-        bool trained = trainClassifiers(ACCURATE);
-//        if (trained) {
-//            setMode(TRAINING_PLAY);
-//        }
+        trainClassifiers(ACCURATE);
     }
 }
 

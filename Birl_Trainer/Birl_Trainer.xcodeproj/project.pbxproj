@@ -54,6 +54,7 @@
 		B032D62C195A37E000913306 /* Birl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B032D62A195A37E000913306 /* Birl.cpp */; };
 		B032D637195B7EC200913306 /* PresetManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B032D635195B7EC100913306 /* PresetManager.cpp */; };
 		B032D655195CC45400913306 /* birlicon4.icns in Resources */ = {isa = PBXBuildFile; fileRef = B032D654195CC45400913306 /* birlicon4.icns */; };
+		B058221D1970758E007B0286 /* NeuralNet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B058221B1970758E007B0286 /* NeuralNet.cpp */; };
 		B0AACD6B19269FF30055DE43 /* ofxLearn.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B0AACD6919269FF30055DE43 /* ofxLearn.cpp */; };
 		BBAB23CB13894F3D00AA2426 /* GLUT.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = BBAB23BE13894E4700AA2426 /* GLUT.framework */; };
 		BFEFCE32DAFE10A8EB519F6C /* ofxUISpacer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 30CBAAEC78A0E9EBBB10A05A /* ofxUISpacer.cpp */; };
@@ -225,6 +226,8 @@
 		B032D635195B7EC100913306 /* PresetManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PresetManager.cpp; sourceTree = "<group>"; };
 		B032D636195B7EC200913306 /* PresetManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PresetManager.h; sourceTree = "<group>"; };
 		B032D654195CC45400913306 /* birlicon4.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = birlicon4.icns; sourceTree = "<group>"; };
+		B058221B1970758E007B0286 /* NeuralNet.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NeuralNet.cpp; sourceTree = "<group>"; };
+		B058221C1970758E007B0286 /* NeuralNet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NeuralNet.h; sourceTree = "<group>"; };
 		B0AACD6919269FF30055DE43 /* ofxLearn.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxLearn.cpp; sourceTree = "<group>"; };
 		B0AACD6A19269FF30055DE43 /* ofxLearn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxLearn.h; sourceTree = "<group>"; };
 		B21E7E5F548EEA92F368040B /* tinyxml.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = tinyxml.h; path = ../../../addons/ofxXmlSettings/libs/tinyxml.h; sourceTree = SOURCE_ROOT; };
@@ -643,6 +646,8 @@
 				B032D632195B195A00913306 /* Constants.h */,
 				B032D635195B7EC100913306 /* PresetManager.cpp */,
 				B032D636195B7EC200913306 /* PresetManager.h */,
+				B058221B1970758E007B0286 /* NeuralNet.cpp */,
+				B058221C1970758E007B0286 /* NeuralNet.h */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;
@@ -847,6 +852,7 @@
 				B032D627195A0C0100913306 /* OutputParameter.cpp in Sources */,
 				B032D62C195A37E000913306 /* Birl.cpp in Sources */,
 				B032D637195B7EC200913306 /* PresetManager.cpp in Sources */,
+				B058221D1970758E007B0286 /* NeuralNet.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

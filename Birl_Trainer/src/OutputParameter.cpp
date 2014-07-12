@@ -100,6 +100,14 @@ void OutputParameter::destroy() {
 }
 
 //-------
+int OutputParameter::getNumberOfFeatures() {
+    return (inputKeys ? KEYS_NUMBER : 0) +
+           (inputKeysDiscrete ? KEYS_NUMBER : 0) +
+           (inputPressure ? PRESSURE_NUMBER : 0) +
+           (inputEmbouchure ? EMBOUCHURE_NUMBER : 0);
+}
+
+//-------
 void OutputParameter::guiEvent(ofxUIEventArgs &e) {
     if (e.getName() == "delete") {
         if (((ofxUIButton *) guiTrain1->getWidget("delete"))->getValue()) {
@@ -268,12 +276,19 @@ void OutputParameter::addExample(vector<double> example) {
 
 //-------
 void OutputParameter::trainClassifier(TrainMode trainMode) {
-    try {
+    try {        
+        classifier.setMlpNumHiddenLayers(MLP_NUM_HIDDEN_LAYERS);
         classifier.trainRegression(trainMode, REGRESSION_TYPE);
         trained = true;
         guiTrain1->setDrawOutline(true);
         guiTrain2->setDrawOutline(true);
-    } catch (exception &e) {
+        
+        // send neural net data to internal neural net object
+        int numLayers = classifier.getMlpNumHiddenLayers();
+        int numFeatures = getNumberOfFeatures();
+        neuralNet.setup(&classifier, numFeatures, numLayers);
+    }
+    catch (exception &e) {
         cout << "error training classifier: " << e.what() << endl;
         trained = false;
     }
@@ -281,8 +296,10 @@ void OutputParameter::trainClassifier(TrainMode trainMode) {
 
 //-------
 void OutputParameter::classifyExample(vector<double> example) {
-    double normalizedValue = classifier.predict(example);
-    value = ofMap(normalizedValue, 0.0f, 1.0f, minValue, maxValue);
+    value = ofMap(classifier.predict(example), 0.0f, 1.0f, minValue, maxValue);
+    double nnVal = ofMap(neuralNet.predict(example), 0.0f, 1.0f, minValue, maxValue);
+    cout << "neuralNet "<<nnVal<<", dlib "<<value<<endl;
+    
     if (FORCE_CLAMP_OUTPUT_PARAMETERS) {
         value = ofClamp(value, minValue, maxValue);
     }
