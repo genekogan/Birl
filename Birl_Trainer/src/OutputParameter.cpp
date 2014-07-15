@@ -298,8 +298,7 @@ void OutputParameter::trainClassifier(TrainMode trainMode) {
 void OutputParameter::classifyExample(vector<double> example) {
     value = ofMap(classifier.predict(example), 0.0f, 1.0f, minValue, maxValue);
     double nnVal = ofMap(neuralNet.predict(example), 0.0f, 1.0f, minValue, maxValue);
-    cout << "neuralNet "<<nnVal<<", dlib "<<value<<endl;
-    
+    cout << "PREDICT " <<name << " :: manual "<<nnVal<<", ofxLearn "<<value<<endl;    
     if (FORCE_CLAMP_OUTPUT_PARAMETERS) {
         value = ofClamp(value, minValue, maxValue);
     }
@@ -325,4 +324,38 @@ void OutputParameter::sendOsc(ofxOscSender &osc) {
     m.setAddress(oscAddress);
     m.addFloatArg(value);
     osc.sendMessage(m);
+}
+
+//-------
+void OutputParameter::sendClassifierToBirl() {
+    int numLayers = classifier.getMlpNumHiddenLayers();
+    int numFeatures = getNumberOfFeatures();
+    dlib::matrix<double> w1m = classifier.getRegressionMlp()->get_w1();
+    dlib::matrix<double> w3m = classifier.getRegressionMlp()->get_w3();
+    
+    ofxOscSender sender;
+    sender.setup("localhost", 1235);
+    
+    ofxOscMessage message;
+    
+    message.setAddress("/classifier/"+name+"/dim");
+    message.addIntArg(numFeatures);
+    message.addIntArg(numLayers);
+    sender.sendMessage(message);
+
+    message.clear();
+    message.setAddress("/classifier/"+name+"/w1");
+    for (int i=0; i<numLayers+1; i++) {
+        for (int j=0; j<numFeatures+1; j++) {
+            message.addFloatArg(w1m(i, j));
+        }
+    }
+    sender.sendMessage(message);
+
+    message.clear();
+    message.setAddress("/classifier/"+name+"/w3");
+    for (int i=0; i<numLayers+1; i++) {
+        message.addFloatArg(w3m(i));
+    }
+    sender.sendMessage(message);
 }

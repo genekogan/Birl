@@ -51,6 +51,7 @@ public:
     void loadClassifier(string path);
     
     void sendOsc(ofxOscSender &osc);
+    void sendClassifierToBirl();
     
     void setTheme(int idxStyle);
     
