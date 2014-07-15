@@ -345,20 +345,28 @@ void OutputParameter::sendClassifierToBirl() {
     message.addIntArg(numFeatures);
     message.addIntArg(numLayers);
     sender.sendMessage(message);
+    cout << "/classifier/"<<name<<"/dim "<<numFeatures<<" "<<numLayers<<endl;
+
 
     message.clear();
     message.setAddress("/classifier/"+name+"/w1");
+    cout << "/classifier/"<<name<<"/w1 ";
     for (int i=0; i<numLayers+1; i++) {
         for (int j=0; j<numFeatures+1; j++) {
             message.addFloatArg(w1m(i, j));
+            cout << w1m(i, j) << ",";
         }
     }
+    cout << endl;
     sender.sendMessage(message);
 
     message.clear();
     message.setAddress("/classifier/"+name+"/w3");
+    cout << "/classifier/"<<name<<"/w3 ";
     for (int i=0; i<numLayers+1; i++) {
         message.addFloatArg(w3m(i));
+        cout << w3m(i) << ",";
     }
+    cout << endl;
     sender.sendMessage(message);
 }
