@@ -287,6 +287,9 @@ void OutputParameter::trainClassifier(TrainMode trainMode) {
         int numLayers = classifier.getMlpNumHiddenLayers();
         int numFeatures = getNumberOfFeatures();
         neuralNet.setup(&classifier, numFeatures, numLayers);
+        
+        // send it to birl firmware via osc
+        sendClassifierToBirl();
     }
     catch (exception &e) {
         cout << "error training classifier: " << e.what() << endl;
@@ -298,7 +301,7 @@ void OutputParameter::trainClassifier(TrainMode trainMode) {
 void OutputParameter::classifyExample(vector<double> example) {
     value = ofMap(classifier.predict(example), 0.0f, 1.0f, minValue, maxValue);
     double nnVal = ofMap(neuralNet.predict(example), 0.0f, 1.0f, minValue, maxValue);
-    cout << "PREDICT " <<name << " :: manual "<<nnVal<<", ofxLearn "<<value<<endl;    
+    cout << "PREDICT " <<name << " :: manual "<<nnVal<<", ofxLearn "<<value<<endl;
     if (FORCE_CLAMP_OUTPUT_PARAMETERS) {
         value = ofClamp(value, minValue, maxValue);
     }

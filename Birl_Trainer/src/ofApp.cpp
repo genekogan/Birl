@@ -544,6 +544,12 @@ void ofApp::keyPressed(int key){
         presetManager.setTheme(idxStyle);
         cout << "Theme set to " << idxStyle << endl;
     }
+    
+    else if (key=='q') {
+        for (int i=0; i<outputParameters.size(); i++) {
+            outputParameters[i]->sendClassifierToBirl();
+        }
+    }
 }
 
 //-------
