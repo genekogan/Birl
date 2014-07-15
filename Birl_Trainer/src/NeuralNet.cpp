@@ -18,7 +18,6 @@ void NeuralNet::getCoefficients() {
             w1.push_back(w1m(i, j));
         }
     }
-
     for (int i=0; i<numLayers+1; i++) {
         w3.push_back(w3m(i));
     }
@@ -35,7 +34,7 @@ double NeuralNet::predict(vector<double> example) {
     for (int i=0; i<example.size(); i++) {
         z.push_back(example[i]);
     }
-    z.push_back(-1);
+    z.push_back(-1.0);
     
     vector<double> tmp1;
     for (int i=0; i<numLayers+1; i++) {
