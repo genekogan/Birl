@@ -1,4 +1,0 @@
-ofxOsc
-ofxXmlSettings
-ofxSuperCollider
-ofxUI

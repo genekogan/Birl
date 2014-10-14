@@ -1,12 +1,14 @@
-machine learning framework for the Birl, using ofxLearn and ofxUI.
-
 ## Birl_Trainer
 
-This application receives Birl input data and trains a regression (support vector machine) mapping to synthesis parameters.
+Machine learning framework for the Birl, built on top of ofxLearn.
 
-To run it, you need openFrameworks installed, as well as the addons [ofxLearn](https://github.com/genekogan/ofxLearn) and [ofxUI](https://github.com/rezaali/ofxUI).
+This application receives Birl input data and trains a regression (multilayer perceptron neural net) mapping to synthesis parameters, which can be outputted via OSC.
 
-To run the Stk example, you also need [ofxStk](https://github.com/Ahbee/ofxStk).
+### dependencies
 
-For the ML functionality, we are using ofxLearn, which wraps the [dlib library](http://dlib.net/). 
-
+ - [openFrameworks (fork)](https://github.com/genekogan/openFrameworks)
+ - [ofxUI (fork)](https://github.com/genekogan/ofxUI)
+ - [OF-tools-and-templates](https://github.com/genekogan/OF-tools-and-templates) (you do not need any of its listed dependencies not listed here)
+ - [ofxLearn](https://github.com/genekogan/ofxLearn)
+ - [ofxSpreadsheet](https://github.com/genekogan/ofxSpreadsheet)
+ - [ofxTouchOsc](https://github.com/genekogan/ofxTouchOsc)
