@@ -56,6 +56,7 @@
 		B070ACF119D902350048E161 /* LearnParameter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B070ACE619D9021D0048E161 /* LearnParameter.cpp */; };
 		B070ACF319D902350048E161 /* Control.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B070ACEB19D902260048E161 /* Control.cpp */; };
 		B070ACF419D902350048E161 /* OscManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B070ACED19D902260048E161 /* OscManager.cpp */; };
+		B0969D1C19F029E600608795 /* birl_icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = B0969D1A19F029D500608795 /* birl_icon.icns */; };
 		B0BA18A219CEA13F00D64AAB /* ofxLearn.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B0BA14B219CEA13B00D64AAB /* ofxLearn.cpp */; };
 		B0BA196119CEA1A700D64AAB /* Base64.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B0BA195D19CEA1A700D64AAB /* Base64.cpp */; };
 		B0BA196219CEA1A700D64AAB /* ofxTouchOsc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B0BA195F19CEA1A700D64AAB /* ofxTouchOsc.cpp */; };
@@ -235,6 +236,7 @@
 		B070ACED19D902260048E161 /* OscManager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = OscManager.cpp; sourceTree = "<group>"; };
 		B070ACEE19D902260048E161 /* OscManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OscManager.h; sourceTree = "<group>"; };
 		B070ACEF19D902260048E161 /* Parameter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Parameter.h; sourceTree = "<group>"; };
+		B0969D1A19F029D500608795 /* birl_icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = birl_icon.icns; sourceTree = "<group>"; };
 		B0BA14B219CEA13B00D64AAB /* ofxLearn.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ofxLearn.cpp; sourceTree = "<group>"; };
 		B0BA14B319CEA13B00D64AAB /* ofxLearn.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxLearn.h; sourceTree = "<group>"; };
 		B0BA195D19CEA1A700D64AAB /* Base64.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Base64.cpp; sourceTree = "<group>"; };
@@ -740,6 +742,7 @@
 			children = (
 				E4B6FCAD0C3E899E008CF71C /* openFrameworks-Info.plist */,
 				E4EB6923138AFD0F00A09F29 /* Project.xcconfig */,
+				B0969D1A19F029D500608795 /* birl_icon.icns */,
 				E4B69E1C0A3A1BDC003C02F2 /* src */,
 				E4EEC9E9138DF44700A80321 /* openFrameworks */,
 				BB4B014C10F69532006C3DED /* addons */,
@@ -810,6 +813,7 @@
 				E4B69B590A3A1756003C02F2 /* Frameworks */,
 				E4B6FFFD0C3F9AB9008CF71C /* ShellScript */,
 				E4C2427710CC5ABF004149E2 /* CopyFiles */,
+				B0969D1B19F029E200608795 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -864,6 +868,17 @@
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
+
+/* Begin PBXResourcesBuildPhase section */
+		B0969D1B19F029E200608795 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B0969D1C19F029E600608795 /* birl_icon.icns in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
 		E4B6FFFD0C3F9AB9008CF71C /* ShellScript */ = {

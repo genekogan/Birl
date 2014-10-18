@@ -5,7 +5,7 @@ void ofApp::setup()
 {
     if (DEBUG_MODE)
         ofSetLogLevel(OF_LOG_VERBOSE);
-
+    
     ofSetEscapeQuitsApp(false);
 
     /* setup birl */
@@ -15,6 +15,7 @@ void ofApp::setup()
     learn.setupOscSender(OSC_OUT_HOST, OSC_OUT_PORT);
     learn.setup(birl);
 }
+
 
 //--------
 void ofApp::update()
@@ -35,13 +36,20 @@ void ofApp::draw()
 }
 
 //--------
-void ofApp::keyPressed(int key){
-    if (key=='T') {
+void ofApp::keyPressed(int key)
+{
+    if (key==OF_KEY_ESC) {
+        learn.toggleViewPreferences();
+    }
+    else if (key=='T') {
         learn.saveOutputsToTouchOsc();
     }
 }
 
-void ofApp::windowResized(int w, int h) {
+//--------
+void ofApp::windowResized(int w, int h)
+{
+    ofShowCursor();
     ofHideCursor();
     ofShowCursor();
 }
