@@ -42,7 +42,7 @@ void ofApp::keyPressed(int key)
         learn.toggleViewPreferences();
     }
     else if (key=='T') {
-        learn.saveOutputsToTouchOsc();
+        //learn.saveOutputsToTouchOsc();
     }
 }
 
