@@ -10,7 +10,7 @@
 #define OSC_OUT_PORT 1236
 
 #define DEBUG_MODE false
-#define USE_FAKE_DATA false
+#define USE_FAKE_DATA true
 
 #include "ofMain.h"
 #include "ofxUI.h"
