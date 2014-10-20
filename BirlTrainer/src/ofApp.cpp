@@ -13,7 +13,7 @@ void ofApp::setup()
 
     /* setup learning */
     learn.setupOscSender(OSC_OUT_HOST, OSC_OUT_PORT);
-    learn.setup(birl);
+    learn.setup(&birl);
 }
 
 
@@ -30,7 +30,7 @@ void ofApp::update()
 //--------
 void ofApp::draw()
 {
-    ofBackgroundGradient(ofColor(240), ofColor(120));
+    ofBackgroundGradient(ofColor(BIRL_GRADIENT_COLOR_LIGHT), ofColor(BIRL_GRADIENT_COLOR_DARK));
     birl.draw(10, 50, 180, 690);
     learn.draw();
 }
@@ -38,18 +38,12 @@ void ofApp::draw()
 //--------
 void ofApp::keyPressed(int key)
 {
-    if (key==OF_KEY_ESC) {
-        learn.toggleViewPreferences();
-    }
-    else if (key=='T') {
-        //learn.saveOutputsToTouchOsc();
-    }
+
 }
 
 //--------
 void ofApp::windowResized(int w, int h)
 {
-    ofShowCursor();
     ofHideCursor();
     ofShowCursor();
 }
