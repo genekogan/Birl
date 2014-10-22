@@ -6,6 +6,7 @@ void ofApp::setup()
     if (DEBUG_MODE)
         ofSetLogLevel(OF_LOG_VERBOSE);
     
+    ofSetFrameRate(1000);
     ofSetEscapeQuitsApp(false);
 
     /* setup birl */
@@ -31,7 +32,7 @@ void ofApp::update()
 void ofApp::draw()
 {
     ofBackgroundGradient(ofColor(BIRL_GRADIENT_COLOR_LIGHT), ofColor(BIRL_GRADIENT_COLOR_DARK));
-    birl.draw(10, 50, 180, 690);
+    birl.draw(10, 50, 180, 684);
     learn.draw();
 }
 
